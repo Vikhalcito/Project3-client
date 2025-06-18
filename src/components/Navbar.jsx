@@ -5,7 +5,7 @@ export default function Navbar() {
   
 
  return (
-     <nav className="w-full bg-black flex justify-between items-center px-4 py-3">
+     <nav className="w-full bg-gradient-to-r from-teal-950 via-teal-400 to-teal-950 flex justify-between items-center px-4 py-3">
       {/* Botón LOG IN */}
       <button className="text-white border border-white px-4 py-2 rounded-lg font-semibold">
         LOG IN
