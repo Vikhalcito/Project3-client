@@ -1,15 +1,13 @@
-import React, { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
-  
 
  return (
-     <nav className="w-full bg-gradient-to-r from-teal-950 via-teal-400 to-teal-950 flex justify-between items-center px-4 py-3">
+     <nav className="fixed top-0 w-full z-50 bg-gradient-to-r from-[rgba(4,47,46,0.9)] via-[rgba(13,148,136,0.8)] to-[rgba(4,47,46,0.9)] backdrop-blur-md shadow-md flex justify-between items-center px-4 py-3">
       {/* Botón LOG IN */}
-      <button className="text-white border border-white px-4 py-2 rounded-lg font-semibold">
+      <Link to ={"/login"} className="text-white border border-white px-4 py-2 rounded-lg font-semibold">
         LOG IN
-      </button>
+      </Link>
 
       {/* Icono menú hamburguesa */}
       <button className="border border-white p-2 rounded-lg flex flex-col justify-center items-center space-y-1">
