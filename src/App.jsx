@@ -8,6 +8,9 @@ import SignUpPage from './pages/SignUpPage'
 import ExerciseListPage from './pages/ExerciseListPage'
 import AddExercisePage from './pages/AddExercisePage'
 import ExerciseDetailsPage from './pages/ExerciseDetailPage'
+import CreateRoutine from './components/CreateRoutine'
+import RoutinesPage from './pages/RoutinesPage'
+import RoutineDetailsPage from './pages/RoutineDetailsPage'
 
 
 function App() {
@@ -22,8 +25,13 @@ function App() {
         <Route exact path="/signup" element={<SignUpPage />}/>
         <Route exact path="/exercises" element={<ExerciseListPage />}/>
         <Route exact path="/exercises/addExercise" element={<AddExercisePage />}/>
-        <Route exact path="/exercises/edit/:exerciseId" element = {<ExerciseDetailsPage />} />
-        
+        <Route exact path="/exercises/:exerciseId" element = {<ExerciseDetailsPage />} />
+        <Route exact path="/routines/create" element={<CreateRoutine />}/>
+
+        <Route exact path="/routines" element={<RoutinesPage />}/>
+        <Route exact path="/routines/:routineId" element={<RoutineDetailsPage />}/>
+
+
       </Routes>
      
     </div>

@@ -74,13 +74,14 @@ function ExerciseListPage () {
         ) : exercises.length === 0 ? (
           <div className="text-center text-white">No exercises found.</div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2  gap-6">
             {exercises.map((exercise) => (
-              <Link to={`/exercises/edit/${exercise._id}`}>
+              
               <div
                 key={exercise._id}
                 className="bg-gray-800 bg-opacity-70 rounded-xl p-4 shadow-md text-white hover:shadow-xl transition"
               >
+              <Link to={`/exercises/${exercise._id}`}>
                 {thumbnail && (
                   <img
                     src={thumbnail}
@@ -99,7 +100,7 @@ function ExerciseListPage () {
                 <p className="mt-2 text-sm text-blue-400 capitalize">
                   Difficulty: {exercise.difficulty}
                 </p>
-
+                </Link>
                 {/* Botón que abre el modal */}
                 <button
                   onClick={() => {
@@ -111,7 +112,7 @@ function ExerciseListPage () {
                   Watch Video
                 </button>
               </div>
-              </Link>
+              
             ))}
           </div>
         )}
