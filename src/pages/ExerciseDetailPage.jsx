@@ -1,7 +1,8 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+
 
 import imgBg from "../assets/Fondo-Exercises.png";
 
@@ -9,6 +10,7 @@ const API_URL = "http://localhost:5005";
 
 function ExerciseDetailsPage() {
   const { exerciseId } = useParams();
+  const navigate = useNavigate()
 
   const [exercise, setExercise] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -32,6 +34,14 @@ function ExerciseDetailsPage() {
 
     fetchExercises();
   }, []);
+
+  const deleteExercise = () => {
+    axios
+    .delete(`${API_URL}/api/exercises/${exerciseId}`)
+    .then(() => {
+      navigate("/exercises")
+    })
+  }
 
   const getYoutubeThumbnail = (url) => {
     const match = url?.match(
@@ -98,7 +108,22 @@ function ExerciseDetailsPage() {
             
           </div>
         )}
+
+        <Link
+            to={`/exercises/update/${exerciseId}`}
+            className="inline-block text-center w-full bg-gradient-to-r from-teal-950 to-teal-500 active:brightness-125 transition duration-300 text-white placeholder:text-white outline-none font-bold py-2 rounded-full mt-2"
+          >
+            Update
+          </Link>
+        <button
+            onClick={deleteExercise}
+            className="w-full bg-gradient-to-r from-red-950 to-red-300 active:brightness-125 transition duration-300 text-white placeholder:text-white outline-none font-bold py-2 rounded-full mt-2"
+          >
+            Delete
+          </button>
+
       </div>
+      
       {/* ────────── Modal ────────── */}
       {isModalOpen && activeVideo && (
         <div

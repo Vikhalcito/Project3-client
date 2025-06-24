@@ -11,6 +11,8 @@ import ExerciseDetailsPage from './pages/ExerciseDetailPage'
 import CreateRoutine from './components/CreateRoutine'
 import RoutinesPage from './pages/RoutinesPage'
 import RoutineDetailsPage from './pages/RoutineDetailsPage'
+import UpdateExercisePage from './pages/UpdateExercisePage'
+
 
 
 function App() {
@@ -26,6 +28,7 @@ function App() {
         <Route exact path="/exercises" element={<ExerciseListPage />}/>
         <Route exact path="/exercises/addExercise" element={<AddExercisePage />}/>
         <Route exact path="/exercises/:exerciseId" element = {<ExerciseDetailsPage />} />
+        <Route exact path="/exercises/update/:exerciseId" element = {<UpdateExercisePage />} />
         <Route exact path="/routines/create" element={<CreateRoutine />}/>
 
         <Route exact path="/routines" element={<RoutinesPage />}/>
