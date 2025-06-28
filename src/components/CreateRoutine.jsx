@@ -3,7 +3,7 @@ import axios from "axios";
 import ExerciseFilter from "./ExerciseFilter";
 import ExercisesList from "./ExercisesList";
 import ExerciseModal from "./ExerciseModal";
-
+import imgHome from "../assets/Fondo-CaliZenics.png"
 const API_URL = "http://localhost:5005";
 
 export default function RoutinePage() {
@@ -70,29 +70,35 @@ export default function RoutinePage() {
 
   
   return (
-    <>
+     <div
+          className="pt-32 flex flex-col items-center justify-start px-4 min-h-screen bg-fixed bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${imgHome})` }}
+        >
+          <div className="w-full max-w-sm bg-[#2a2f38]/50 rounded-3xl shadow-2xl p-8">
+            <h2 className="text-3xl font-bold text-white text-center mb-6">
+              Create Routine
+            </h2>
       <form
         onSubmit={handleSubmit}
-        className="mt-20 space-y-6 max-w-md mx-auto p-6 bg-white shadow rounded-xl"
+        className="space-y-4"
       >
-        <h2 className="text-2xl font-semibold">Create Routine</h2>
 
         <div>
-          <label className="block text-sm font-medium mb-1">Routine Name</label>
+          <label className="block text-white font-medium">Routine Name</label>
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full p-2 border rounded"
+            className="w-full bg-gray-800/50 text-white px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500"
             placeholder="Ej. Rutina rápida"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-1">Category</label>
+          <label className="block text-white font-medium">Category</label>
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="w-full p-2 border rounded"
+            className="w-full bg-gray-800/50 text-white px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500"
           >
             <option value="warm-up">Warm-up</option>
             <option value="stretching">Stretching</option>
@@ -101,11 +107,11 @@ export default function RoutinePage() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-1">Difficulty</label>
+          <label className="block text-white font-medium">Difficulty</label>
           <select
             value={difficulty}
             onChange={(e) => setDifficulty(e.target.value)}
-            className="w-full p-2 border rounded"
+            className="w-full bg-gray-800/50 text-white px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500"
           >
             <option value="low">Low</option>
             <option value="medium">Medium</option>
@@ -141,6 +147,7 @@ export default function RoutinePage() {
         exercise={selectedExercise}
         onClose={() => setSelectedExercise(null)}
       />
-    </>
+      </div>
+    </div>
   );
 }

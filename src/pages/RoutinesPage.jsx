@@ -74,6 +74,12 @@ return(
               
             ))}
           </div>
+           <Link
+          to="/routines/create"
+          className="inline-block w-auto m-2 px-5 bg-gradient-to-r from-teal-950 to-teal-500 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-full mt-2"
+        >
+          New Routine
+        </Link>
     </div>
     </div>
 )

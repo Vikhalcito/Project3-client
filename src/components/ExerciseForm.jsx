@@ -11,12 +11,15 @@ export default function ExerciseForm({
   errorMsg,
 }) 
 {
+
+  console.log("AQUI LOS VALORES", initialValues)
   const [form, setForm] = useState({
     name: initialValues.name ?? "",
     description: initialValues.description ?? "",
     category: initialValues.category ?? "",
     difficulty: initialValues.difficulty ?? "medium",
     videoUrl: initialValues.videoUrl ?? "",
+    id: initialValues.id
   });
 
   const handleChange = (e) =>
@@ -110,7 +113,7 @@ export default function ExerciseForm({
             Update Exercise
           </button>
           <Link
-            to="/exercises"
+            to={`/exercises/${initialValues._id}`}
             className="block text-center w-full bg-gradient-to-r from-red-950 to-red-300 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-full mt-2"
           >
             Cancel
