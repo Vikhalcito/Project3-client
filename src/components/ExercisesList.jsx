@@ -2,7 +2,7 @@ export default function ExerciseList({exercises, selectedIds, toggleExercise, on
   return (
     <div className="space-y-2 max-h-64 overflow-y-auto border p-3 rounded">
       {exercises.map((ex) => (
-        <div key={ex._id} className="w-full bg-gray-700/50 text-white px-4 py-3 rounded-xl">
+        <div key={ex._id} className="w-full flex-column bg-gray-700/50 text-white px-4 py-3 rounded-xl">
           <label className="flex gap-2 items-start flex-1">
             <input
               type="checkbox"
@@ -13,7 +13,7 @@ export default function ExerciseList({exercises, selectedIds, toggleExercise, on
             <div>
               <span className="block text-white font-medium">{ex.name}</span>{" "}
               
-              <p className="text-sm text-gray-500 line-clamp-2">
+              <p className="text-sm text-gray-200 line-clamp-2">
                 {ex.description}
               </p>
             </div>
@@ -32,7 +32,7 @@ export default function ExerciseList({exercises, selectedIds, toggleExercise, on
           <button
             type="button"
             onClick={() => onView(ex)}
-            className="text-sm text-indigo-600 hover:underline ml-2"
+            className="text-sm text-indigo-400 hover:underline ml-2"
           >
             Ver más
           </button>

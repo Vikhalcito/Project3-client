@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import ExerciseFilter from "./ExerciseFilter";
 import ExercisesList from "./ExercisesList";
@@ -126,7 +127,7 @@ export default function RoutinePage() {
         />
 
         <div>
-          <label className="block text-sm font-medium mb-2">Ejercicios</label>
+          <label className="block text-sm text-white  font-medium mb-2">Ejercicios</label>
           <ExercisesList
             exercises={filteredExercises}
             selectedIds={selectedIds}
@@ -137,10 +138,16 @@ export default function RoutinePage() {
 
         <button
           type="submit"
-          className="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700"
+          className="w-full bg-gradient-to-r from-indigo-900 to-indigo-400 active:brightness-125 transition duration-300 font-bold rounded-full py-2 text-white"
         >
           Guardar Rutina
         </button>
+        <Link
+            to="/routines"
+            className="block text-center w-full bg-gradient-to-r from-red-950 to-red-300 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-full mt-2"
+          >
+            Cancel
+          </Link>
       </form>
 
       <ExerciseModal

@@ -12,6 +12,7 @@ import CreateRoutine from './components/CreateRoutine'
 import RoutinesPage from './pages/RoutinesPage'
 import RoutineDetailsPage from './pages/RoutineDetailsPage'
 import UpdateExercisePage from './pages/UpdateExercisePage'
+import ProfilePage from './pages/ProfilePage'
 
 
 
@@ -34,6 +35,7 @@ function App() {
         <Route exact path="/routines" element={<RoutinesPage />}/>
         <Route exact path="/routines/:routineId" element={<RoutineDetailsPage />}/>
 
+        <Route exact path="/user" element={<ProfilePage />} />
 
       </Routes>
      

@@ -33,7 +33,7 @@ function RoutineDetailsPage() {
               
               <div
                 key={routine._id}
-                className="bg-gray-900 bg-opacity-80 rounded-xl p-4 shadow-md text-white hover:shadow-xl transition"
+                className="bg-gray-800 bg-opacity-60 rounded-xl p-4 shadow-md text-white hover:shadow-xl transition"
               >
               <Link to={`/exercises/${routine._id}`}>
                 {/* {thumbnail && (
