@@ -32,7 +32,7 @@ function App() {
         <Route exact path="/exercises/update/:exerciseId" element = {<UpdateExercisePage />} />
         <Route exact path="/routines/create" element={<CreateRoutine />}/>
 
-        <Route exact path="/routines" element={<RoutinesPage />}/>
+        <Route exact path="/user-id/routines" element={<RoutinesPage />}/>
         <Route exact path="/routines/:routineId" element={<RoutineDetailsPage />}/>
 
         <Route exact path="/user" element={<ProfilePage />} />

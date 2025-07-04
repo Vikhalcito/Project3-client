@@ -4,17 +4,8 @@ import axios from 'axios';
 
 import imgHome from "../assets/Fondo-CaliZenics.png"
 import { Link } from 'react-router-dom';
+const API_URL = "http://localhost:5005";
 
-// ------------------------------------------------------------
-// ProfilePage.jsx
-// Orden de los campos según el mockup:
-// 1. Avatar
-// 2. USERNAME (mayúsculas)
-// 3. email-address (itálico)
-// 4. Age | Weight | Height (misma fila)
-// 5. Descripción breve en un cuadro
-// 6. Botón Routines + contador separado a la derecha
-// ------------------------------------------------------------
 export default function ProfilePage() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -22,8 +13,9 @@ export default function ProfilePage() {
 
   useEffect(() => {
     axios
-      .get('/api/user/profile') // 🔗 Ajusta la URL real
+      .get(`${API_URL}/api/profile`) // 🔗 Ajusta la URL real
       .then((res) => setUser(res.data))
+      .then((res)=> console.log(res.data))
       .catch((err) => {
         console.error(err);
         setError('No se pudo obtener la información del usuario.');
@@ -61,7 +53,10 @@ export default function ProfilePage() {
     description,
     routines = [],
     routinesCount,
+    
   } = user || {};
+
+  console.log(user.id)
 
   const displayName = (username || name || email?.split?.('@')[0] || 'USERNAME').toUpperCase();
   const weightValue = weight ?? weitgh ?? '—';
@@ -124,7 +119,7 @@ export default function ProfilePage() {
         {/* Fila final: Botón + contador */}
         <div className="mt-8 w-full flex items-center justify-between">
           <Link
-            to={"/routines"}
+            to={`/user-${user.id}/routines`}
             className="w-full text-center p-6 bg-gradient-to-r from-indigo-900 to-indigo-400 active:brightness-125 transition duration-300 font-bold rounded-full py-2 text-white">
            🏋️Routines
           </Link>

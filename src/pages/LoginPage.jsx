@@ -1,14 +1,36 @@
+import { useState} from "react";
+import axios from "axios";
+
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import imgHome from "../assets/Fondo-CaliZenics.png"
+const API_URL = "http://localhost:5005";
 
 function LoginPage() {
 
-  const navigate = useNavigate();  
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState(undefined);
+
+  const navigate = useNavigate(); 
+  
+  const handleEmail = (e) => setEmail(e.target.value);
+  const handlePassword = (e) => setPassword(e.target.value);
+
   const handleLoginSubmit = (e) => {
     e.preventDefault();
-    navigate("/")
+    const requestBody = {email, password};
+ console.log(requestBody)
+    axios.post(`${API_URL}/auth/login`, requestBody)
+      .then((response) => {
+        console.log(response)
+        navigate(`/user`);
+      })
+      .catch((error) => {
+        const errorDescription = error.response.data.message;
+        setErrorMessage(errorDescription);
+      })
 
   } 
 
@@ -35,12 +57,16 @@ function LoginPage() {
           <input
             type="email"
             placeholder="E-mail"
+            value={email}
+            onChange={handleEmail}
             className="w-full bg-gray-700 bg-opacity-50 text-white px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500"
           />
 
           <input
             type="password"
             placeholder="Password"
+            value={password}
+            onChange={handlePassword}
             className="w-full bg-gray-700 bg-opacity-50 text-white px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500"
           />
 

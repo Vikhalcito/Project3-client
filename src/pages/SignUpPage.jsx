@@ -1,12 +1,36 @@
+import { useState } from "react";
+import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import imgHome from "../assets/Fondo-CaliZenics.png"
 
+const API_URL = "http://localhost:5005";
+
 function SignUpPage() {
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [errorMessage, setErrorMessage] = useState(undefined);
+
+  const handleEmail = (e) => setEmail(e.target.value);
+  const handlePassword = (e) => setPassword(e.target.value);
+  const handleName = (e) => setName(e.target.value);
 
   const navigate = useNavigate();  
   const handleSignupSubmit = (e) =>{
     e.preventDefault();
-    navigate("/login")
+    
+    const requestBody = { email, password, name };
+ 
+    
+    axios.post(`${API_URL}/auth/signup`, requestBody)
+      .then((response) => {
+        navigate('/login');
+      })
+      .catch((error) => {
+        const errorDescription = error.response.data.message;
+        setErrorMessage(errorDescription);
+      })
   }  
   return (
     <div
@@ -33,17 +57,23 @@ function SignUpPage() {
           <input
             type="text"
             placeholder="Username"
+            value={name}
+            onChange={handleName}
             className="w-full bg-gray-700 bg-opacity-50 text-white px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500"
           />                
           <input
             type="email"
             placeholder="E-mail"
+            value={email}
+            onChange={handleEmail}
             className="w-full bg-gray-700 bg-opacity-50 text-white px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500"        
           />
 
           <input
             type="password"
             placeholder="Password"
+            value={password}
+            onChange={handlePassword}
             className="w-full bg-gray-700 bg-opacity-50 text-white px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500"
           />
 

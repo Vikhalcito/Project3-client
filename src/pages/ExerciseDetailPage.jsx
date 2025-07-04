@@ -111,13 +111,13 @@ function ExerciseDetailsPage() {
 
         <Link
             to={`/exercises/update/${exerciseId}`}
-            className="inline-block text-center w-full bg-gradient-to-r from-teal-950 to-teal-500 active:brightness-125 transition duration-300 text-white placeholder:text-white outline-none font-bold py-2 rounded-full mt-2"
+            className="inline-block text-center w-full bg-gradient-to-r from-teal-950 to-teal-500 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-full mt-2"
           >
             Update
           </Link>
         <button
             onClick={deleteExercise}
-            className="w-full bg-gradient-to-r from-red-950 to-red-300 active:brightness-125 transition duration-300 text-white placeholder:text-white outline-none font-bold py-2 rounded-full mt-2"
+            className="w-full bg-gradient-to-r from-red-950 to-red-300 active:brightness-125 transition duration-300 text-white  font-bold py-2 rounded-full mt-2"
           >
             Delete
           </button>
@@ -152,6 +152,12 @@ function ExerciseDetailsPage() {
           </div>
         </div>
       )}
+      <Link
+            to={`/exercises`}
+            className="text-center w-auto bg-gradient-to-r from-teal-950 to-teal-500 active:brightness-125 transition duration-300 text-white font-bold px-4 py-2 rounded-full mt-2"
+          >
+            Go Back
+          </Link>
     </div>
   );
 }
