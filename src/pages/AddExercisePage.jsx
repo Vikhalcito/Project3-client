@@ -11,12 +11,14 @@ export default function AddExercisePage() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
 
+  const storedToken = localStorage.getItem("authToken");
+
   const handleCreate = (data) => {
     setLoading(true);
     setError("");
 
     axios
-      .post(`${API_URL}/api/exercises`, data)
+      .post(`${API_URL}/api/exercises`, data, { headers: { Authorization: `Bearer ${storedToken}` } })
       .then(() => {
         setSuccess(true);
         navigate("/exercises");

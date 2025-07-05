@@ -3,14 +3,13 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-
 import imgBg from "../assets/Fondo-Exercises.png";
 
 const API_URL = "http://localhost:5005";
 
 function ExerciseDetailsPage() {
   const { exerciseId } = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [exercise, setExercise] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -19,10 +18,14 @@ function ExerciseDetailsPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeVideo, setActiveVideo] = useState(null);
 
+  const storedToken = localStorage.getItem("authToken");
+
   useEffect(() => {
     const fetchExercises = async () => {
       try {
-        const res = await axios.get(`${API_URL}/api/exercises/${exerciseId}`);
+        const res = await axios.get(`${API_URL}/api/exercises/${exerciseId}`, {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        });
         setExercise(res.data);
         console.log(res.data);
       } catch (error) {
@@ -37,11 +40,13 @@ function ExerciseDetailsPage() {
 
   const deleteExercise = () => {
     axios
-    .delete(`${API_URL}/api/exercises/${exerciseId}`)
-    .then(() => {
-      navigate("/exercises")
-    })
-  }
+      .delete(`${API_URL}/api/exercises/${exerciseId}`, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
+      .then(() => {
+        navigate("/exercises");
+      });
+  };
 
   const getYoutubeThumbnail = (url) => {
     const match = url?.match(
@@ -77,53 +82,51 @@ function ExerciseDetailsPage() {
           <div className="text-center text-white">No exercises found.</div>
         ) : (
           <div className="max-w-md w-full mx-auto bg-gray-800 bg-opacity-70 rounded-xl p-4 shadow-md text-white hover:shadow-xl transition">
-            
-          <h2 className="text-4xl text-center text-white font-bold mb-1">{exercise.name}</h2>
-            
-              
+            <h2 className="text-4xl text-center text-white font-bold mb-1">
+              {exercise.name}
+            </h2>
 
-              {thumbnail && (
-    <img
-      src={thumbnail}
-      alt={`Thumbnail for ${exercise.name}`}
-      className="w-full h-48 md:h-64 object-cover rounded-lg mb-3"
-    />
-  )}
-              {/* Botón que abre el modal */}
-              <button
-    onClick={() => {
-      setActiveVideo(defaultVideoUrl); // o exercise.videoUrl
-      setIsModalOpen(true);
-    }}
-    className="text-teal-400 text-sm mt-2 inline-block underline hover:text-teal-300 transition"
-  >
-    Watch Video
-  </button>
+            {thumbnail && (
+              <img
+                src={thumbnail}
+                alt={`Thumbnail for ${exercise.name}`}
+                className="w-full h-48 md:h-64 object-cover rounded-lg mb-3"
+              />
+            )}
+            {/* Botón que abre el modal */}
+            <button
+              onClick={() => {
+                setActiveVideo(defaultVideoUrl); // o exercise.videoUrl
+                setIsModalOpen(true);
+              }}
+              className="text-teal-400 text-sm mt-2 inline-block underline hover:text-teal-300 transition"
+            >
+              Watch Video
+            </button>
 
-              <p className="text-sm text-teal-300">{exercise.category}</p>
-  <p className="mt-2 text-sm text-gray-200">{exercise.description}</p>
-  <p className="mt-2 text-sm text-blue-400 capitalize">
-    Difficulty: {exercise.difficulty}
-  </p>
-            
+            <p className="text-sm text-teal-300">{exercise.category}</p>
+            <p className="mt-2 text-sm text-gray-200">{exercise.description}</p>
+            <p className="mt-2 text-sm text-blue-400 capitalize">
+              Difficulty: {exercise.difficulty}
+            </p>
+             <Link
+          to={`/exercises/update/${exerciseId}`}
+          className="inline-block text-center w-full bg-gradient-to-r from-teal-950 to-teal-500 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-full mt-2"
+        >
+          Update
+        </Link>
+        <button
+          onClick={deleteExercise}
+          className="w-full bg-gradient-to-r from-red-950 to-red-300 active:brightness-125 transition duration-300 text-white  font-bold py-2 rounded-full mt-2"
+        >
+          Delete
+        </button>
           </div>
         )}
 
-        <Link
-            to={`/exercises/update/${exerciseId}`}
-            className="inline-block text-center w-full bg-gradient-to-r from-teal-950 to-teal-500 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-full mt-2"
-          >
-            Update
-          </Link>
-        <button
-            onClick={deleteExercise}
-            className="w-full bg-gradient-to-r from-red-950 to-red-300 active:brightness-125 transition duration-300 text-white  font-bold py-2 rounded-full mt-2"
-          >
-            Delete
-          </button>
-
+       
       </div>
-      
+
       {/* ────────── Modal ────────── */}
       {isModalOpen && activeVideo && (
         <div
@@ -153,11 +156,11 @@ function ExerciseDetailsPage() {
         </div>
       )}
       <Link
-            to={`/exercises`}
-            className="text-center w-auto bg-gradient-to-r from-teal-950 to-teal-500 active:brightness-125 transition duration-300 text-white font-bold px-4 py-2 rounded-full mt-2"
-          >
-            Go Back
-          </Link>
+        to={`/exercises`}
+        className="text-center w-auto bg-gradient-to-r from-teal-950 to-teal-500 active:brightness-125 transition duration-300 text-white font-bold px-4 py-2 rounded-full mt-2"
+      >
+        Go Back
+      </Link>
     </div>
   );
 }

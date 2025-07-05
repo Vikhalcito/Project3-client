@@ -1,38 +1,44 @@
-import { useState} from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
 
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/auth.context";
 
-import imgHome from "../assets/Fondo-CaliZenics.png"
+import imgHome from "../assets/Fondo-CaliZenics.png";
 const API_URL = "http://localhost:5005";
 
 function LoginPage() {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(undefined);
 
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   
+  const { storeToken, authenticateUser } = useContext(AuthContext); //Aqui el storeToken
+
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
-    const requestBody = {email, password};
- console.log(requestBody)
-    axios.post(`${API_URL}/auth/login`, requestBody)
+    const requestBody = { email, password };
+    console.log(requestBody);
+    axios
+      .post(`${API_URL}/auth/login`, requestBody)
       .then((response) => {
-        console.log(response)
-        navigate(`/user`);
+        console.log('JWT token', response.data.authToken);
+        storeToken(response.data.authToken); // StoreToken 
+        return authenticateUser();
+      })
+      .then(()=> {
+        navigate("/user");
       })
       .catch((error) => {
         const errorDescription = error.response.data.message;
         setErrorMessage(errorDescription);
-      })
-
-  } 
+      });
+  };
 
   return (
     <div
@@ -50,7 +56,9 @@ function LoginPage() {
 
       {/* Login Card - separado del h1 con margen superior para evitar solapamiento */}
       <div className="w-full max-w-sm mt-20 bg-[#2a2f38] bg-opacity-50 rounded-3xl shadow-2xl p-8">
-        <h2 className="text-3xl font-bold text-white text-center mb-6">Login</h2>
+        <h2 className="text-3xl font-bold text-white text-center mb-6">
+          Login
+        </h2>
 
         {/* Formulario de Log in */}
         <form onSubmit={handleLoginSubmit} className="space-y-4">
@@ -72,7 +80,9 @@ function LoginPage() {
 
           <label className="flex items-start gap-2 text-sm text-white">
             <input type="checkbox" className="mt-1 accent-teal-600" />
-            <span>You are about to change your body, your mind, your life!</span>
+            <span>
+              You are about to change your body, your mind, your life!
+            </span>
           </label>
 
           <button
@@ -82,7 +92,7 @@ function LoginPage() {
             LOG IN
           </button>
         </form>
-
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
         {/* Footer */}
         <div className="mt-6 text-center text-gray-300">
           Don't have an account?
@@ -97,4 +107,4 @@ function LoginPage() {
     </div>
   );
 }
-export default LoginPage
+export default LoginPage;

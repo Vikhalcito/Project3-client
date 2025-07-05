@@ -30,11 +30,13 @@ function ExerciseListPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeVideo, setActiveVideo] = useState(null);
 
+const storedToken = localStorage.getItem("authToken");
+
   useEffect(() => {
     
       
         axios
-        .get(`${API_URL}/api/exercises`)
+        .get(`${API_URL}/api/exercises`, { headers: { Authorization: `Bearer ${storedToken}` } } )
         .then((res) => {
           const data = res.data.map((ex) => {
           const videoUrl =

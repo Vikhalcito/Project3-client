@@ -13,6 +13,7 @@ import RoutinesPage from './pages/RoutinesPage'
 import RoutineDetailsPage from './pages/RoutineDetailsPage'
 import UpdateExercisePage from './pages/UpdateExercisePage'
 import ProfilePage from './pages/ProfilePage'
+import UpdateRoutinePage from './pages/UpdateRoutinePage'
 
 
 
@@ -30,10 +31,12 @@ function App() {
         <Route exact path="/exercises/addExercise" element={<AddExercisePage />}/>
         <Route exact path="/exercises/:exerciseId" element = {<ExerciseDetailsPage />} />
         <Route exact path="/exercises/update/:exerciseId" element = {<UpdateExercisePage />} />
-        <Route exact path="/routines/create" element={<CreateRoutine />}/>
 
-        <Route exact path="/user-id/routines" element={<RoutinesPage />}/>
+
+        <Route exact path="/:id/routines" element={<RoutinesPage />}/>
+        <Route exact path="/:id/routines/create" element={<CreateRoutine />}/>
         <Route exact path="/routines/:routineId" element={<RoutineDetailsPage />}/>
+        <Route exact path="/routines/:routineId/update" element={<UpdateRoutinePage />} />
 
         <Route exact path="/user" element={<ProfilePage />} />
 

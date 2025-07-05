@@ -12,7 +12,7 @@ export default function ExerciseForm({
 }) 
 {
 
-  console.log("AQUI LOS VALORES", initialValues)
+
   const [form, setForm] = useState({
     name: initialValues.name ?? "",
     description: initialValues.description ?? "",

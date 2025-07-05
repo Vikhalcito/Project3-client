@@ -24,7 +24,7 @@ function SignUpPage() {
  
     
     axios.post(`${API_URL}/auth/signup`, requestBody)
-      .then((response) => {
+      .then(() => {
         navigate('/login');
       })
       .catch((error) => {
@@ -89,7 +89,7 @@ function SignUpPage() {
             SIGN UP
           </button>
         </form>
-
+        { errorMessage && <p className="error-message">{errorMessage}</p> }
         {/* Footer */}
        
          <div className="mt-6 text-center text-gray-200">

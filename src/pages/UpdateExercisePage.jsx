@@ -15,8 +15,9 @@ export default function UpdateExercisePage() {
 
   // Traer datos existentes
   useEffect(() => {
+    const storedToken = localStorage.getItem("authToken");
     axios
-      .get(`${API_URL}/api/exercises/${exerciseId}`)
+      .get(`${API_URL}/api/exercises/${exerciseId}`, { headers: { Authorization: `Bearer ${storedToken}` } })
       .then((res) => {
         const data = res.data;
         setInitialValues(data)
@@ -29,10 +30,10 @@ export default function UpdateExercisePage() {
 
   const handleUpdate = (form)=> {
 
-    
+    const storedToken = localStorage.getItem("authToken");
     const requestBody = form
     axios
-    .put(`${API_URL}/api/exercises/${exerciseId}`, requestBody) 
+    .put(`${API_URL}/api/exercises/${exerciseId}`, requestBody, { headers: { Authorization: `Bearer ${storedToken}` } }) 
     .then(() => {
         setSuccess(true)
         navigate(`/exercises/${exerciseId}`)

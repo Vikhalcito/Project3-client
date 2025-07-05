@@ -1,7 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import imgBg from "../assets/Fondo-Exercises.png";
 import { Link } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+
+import { AuthContext } from "../context/auth.context";
 
 const API_URL = "http://localhost:5005";
 
@@ -9,11 +12,14 @@ function RoutinesPage() {
 
     const [routines, setRoutines] = useState([]);
     const [loading, setLoading] = useState(true);
+    
+    const {user} = useContext(AuthContext);
 
     useEffect(() => {
   const fetchExercises = () => {
+    const storedToken = localStorage.getItem("authToken")
     axios
-      .get(`${API_URL}/api/routines`)
+      .get(`${API_URL}/api/routines`, { headers: { Authorization: `Bearer ${storedToken}` } })
       .then((res) => {
         setRoutines(res.data);
         console.log(res.data);
@@ -28,6 +34,10 @@ function RoutinesPage() {
 
   fetchExercises();
 }, []);
+
+if (!user) {
+    return <div className="pt-32 text-white">Cargando…</div>;
+  }
 
 return(
     <div className="pt-24 pb-8 flex flex-col items-center justify-start px-4 min-h-screen bg-fixed bg-cover bg-center bg-no-repeat relative"
@@ -75,7 +85,7 @@ return(
             ))}
           </div>
            <Link
-          to="/routines/create"
+          to={`/${user._id}/routines/create`}
           className="inline-block w-auto m-2 px-5 bg-gradient-to-r from-teal-950 to-teal-500 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-full mt-2"
         >
           New Routine

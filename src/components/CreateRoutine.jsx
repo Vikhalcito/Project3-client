@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import ExerciseFilter from "./ExerciseFilter";
 import ExercisesList from "./ExercisesList";
 import ExerciseModal from "./ExerciseModal";
 import imgHome from "../assets/Fondo-CaliZenics.png"
 const API_URL = "http://localhost:5005";
+
+import { AuthContext } from "../context/auth.context"
 
 export default function RoutinePage() {
   const [name, setName] = useState("");
@@ -19,16 +21,21 @@ export default function RoutinePage() {
   const [exerciseTypes, setExerciseTypes] = useState([]);
   const [selectedExercise, setSelectedExercise] = useState(null);
 
+  const navigate = useNavigate();
+
+  const {user} = useContext(AuthContext);
+  console.log(user)
 
   useEffect(() => {
+    const storedToken = localStorage.getItem("authToken")
     axios
-      .get(`${API_URL}/api/exercises`)
+      .get(`${API_URL}/api/exercises`,{ headers: { Authorization: `Bearer ${storedToken}` } } )
       .then((res) => {
         const exercises = res.data
         setAllExercises(exercises);
         setFilteredExercises(exercises);
 
-        // 🆕 Extraer tipos únicos dinámicamente
+        //Extraer tipos únicos dinámicamente
         const uniqueTypes = Array.from(
           new Set(exercises.map((ex) => ex.category).filter(Boolean))
         );
@@ -51,20 +58,24 @@ export default function RoutinePage() {
       prev.includes(id) ? prev.filter((eid) => eid !== id) : [...prev, id]
     );
   };
-
+if (!user) {
+    return <div className="text-white p-8">Loading…</div>;
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
+    const storedToken = localStorage.getItem("authToken")
     axios
-      .post(`${API_URL}/api/routines`, { name, category, difficulty, exercises: selectedIds })
+      .post(`${API_URL}/api/routines`, { name, category, difficulty, exercises: selectedIds}, { headers: { Authorization: `Bearer ${storedToken}` } })
       .then(() => {
-        alert("✅ Rutina creada correctamente");
+        alert("Rutina creada correctamente");
         setName("");
         setDifficulty("beginner");
         setSelectedIds([]);
         setFilterType("all");
+        navigate(`/${user._id}/routines`)
       })
       .catch((err) => {
-        console.error("❌ Error al crear rutina:", err.response?.data || err);
+        console.error("Error al crear rutina:", err.response?.data || err);
         alert("Error al crear rutina");
       });
   };
@@ -143,7 +154,7 @@ export default function RoutinePage() {
           Guardar Rutina
         </button>
         <Link
-            to="/routines"
+            to={`/${user._id}/routines`}
             className="block text-center w-full bg-gradient-to-r from-red-950 to-red-300 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-full mt-2"
           >
             Cancel
