@@ -149,7 +149,7 @@ if (!user) {
 
         <button
           type="submit"
-          className="w-full bg-gradient-to-r from-indigo-900 to-indigo-400 active:brightness-125 transition duration-300 font-bold rounded-full py-2 text-white"
+          className="w-full bg-gradient-to-r from-indigo-900 to-teal-500 active:brightness-125 transition duration-300 font-bold rounded-full py-2 text-white"
         >
           Guardar Rutina
         </button>

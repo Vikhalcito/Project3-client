@@ -10,7 +10,7 @@ const API_URL = "http://localhost:5005";
 function RoutineDetailsPage() {
 
  const [routine, setRoutine] = useState([]);
-  const [exercises, setExercises] = useState([]);
+const [exercises, setExercises] = useState([]);
   //const [loading, setLoading] = useState(true);
   
 const {user, isLoading} = useContext(AuthContext)
@@ -83,10 +83,11 @@ const { routineId } = useParams();
           </div>
           <Link
             to={`/${user._id}/routines`}
-            className="text-center w-40 bg-gradient-to-r from-indigo-800 to-indigo-400 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-full mt-2"
+            className="text-center w-40 bg-gradient-to-r from-indigo-800 to-teal-500 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-xl mt-2"
           >
             My Routines
           </Link>
+          
     </div>
   );
 }

@@ -15,6 +15,9 @@ import UpdateExercisePage from './pages/UpdateExercisePage'
 import ProfilePage from './pages/ProfilePage'
 import UpdateRoutinePage from './pages/UpdateRoutinePage'
 
+//aqui restricciones
+
+import IsPrivate from './components/isPrivate'
 
 
 function App() {
@@ -27,8 +30,10 @@ function App() {
         <Route exact path="/" element={<HomePage />}/>
         <Route exact path="/login" element={<LoginPage />}/>
         <Route exact path="/signup" element={<SignUpPage />}/>
+
+
         <Route exact path="/exercises" element={<ExerciseListPage />}/>
-        <Route exact path="/exercises/addExercise" element={<AddExercisePage />}/>
+        <Route exact path="/exercises/addExercise" element={<IsPrivate><AddExercisePage /></IsPrivate>}/>
         <Route exact path="/exercises/:exerciseId" element = {<ExerciseDetailsPage />} />
         <Route exact path="/exercises/update/:exerciseId" element = {<UpdateExercisePage />} />
 

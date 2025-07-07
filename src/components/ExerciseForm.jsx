@@ -22,6 +22,7 @@ export default function ExerciseForm({
     id: initialValues.id
   });
 
+
   const handleChange = (e) =>
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
-import { CircleUserRound } from "lucide-react";
+import { CircleUserRound, Cake, Weight, Ruler  } from "lucide-react";
 import { AuthContext } from "../context/auth.context";
 import imgHome from "../assets/Fondo-CaliZenics.png";
 import { Link } from "react-router-dom";
@@ -29,8 +29,7 @@ export default function ProfilePage() {
     weight,
     height = "—",
     description,
-    routines = [],
-    routinesCount,
+    
     _id,
   } = user;
 
@@ -41,8 +40,7 @@ export default function ProfilePage() {
     "USERNAME"
   ).toUpperCase();
   const weightValue = weight ?? "—";
-  const routinesQty =
-    typeof routinesCount === "number" ? routinesCount : routines.length;
+  
 
   return (
     <div
@@ -71,21 +69,30 @@ export default function ProfilePage() {
 
           {/* USERNAME */}
           <p className="text-sm font-semibold text-gray-100 text-center">
-            USERNAME {displayName}
+            {displayName}
           </p>
 
           {/* Email en itálica */}
           <p className="text-xs italic text-gray-400 text-center">
-            email-address: {email}
+            {email}
           </p>
           {/* Age | Weight | Height */}
           <div className="mt-6 grid grid-cols-3 gap-x-4 text-xs font-medium w-full text-center text-white">
-            <span>🎂 Age: {age}</span>
+  <span className="flex flex-col items-center">
+    <Cake className="w-4 h-4 mb-1" />
+    Age: 31{age}
+  </span>
 
-            <span>⚖️ Weight: {weightValue} kg </span>
+  <span className="flex flex-col items-center">
+    <Weight className="w-4 h-4 mb-1" />
+    Weight: 78 {weightValue} kg
+  </span>
 
-            <span>📏 Height: {height} cm</span>
-          </div>
+  <span className="flex flex-col items-center">
+    <Ruler className="w-4 h-4 mb-1" />
+    Height: {height} cm
+  </span>
+</div>
         </div>
 
         {/* Descripción */}
@@ -100,7 +107,7 @@ export default function ProfilePage() {
         <div className="mt-8 w-full flex items-center justify-between">
           <Link
             to={userPath}
-            className="w-full text-center p-6 bg-gradient-to-r from-indigo-900 to-indigo-400 active:brightness-125 transition duration-300 font-bold rounded-full py-2 text-white"
+            className="w-full text-center p-6 bg-gradient-to-r from-indigo-900 to-teal-500 active:brightness-125 transition duration-300 font-bold rounded-xl py-2 text-white"
           >
             🏋️Routines
           </Link>

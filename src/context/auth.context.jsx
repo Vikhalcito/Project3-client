@@ -16,6 +16,8 @@ function AuthProviderWrapper(props) {
     localStorage.setItem('authToken', token);
   }
   
+  
+  
   /* 
     Functions for handling the authentication status (isLoggedIn, isLoading, user)
     will be added here later in the next step 
@@ -28,6 +30,7 @@ function AuthProviderWrapper(props) {
     setIsLoggedIn(false);
     setUser(null);
     setIsLoading(false);
+
     return Promise.resolve();            // ⬅️ devolvemos una promesa resuelta
   }
     

@@ -1,7 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../context/auth.context";
 
 import imgBg from "../assets/Fondo-Exercises.png";
 
@@ -9,19 +10,28 @@ const API_URL = "http://localhost:5005";
 
 function ExerciseDetailsPage() {
   const { exerciseId } = useParams();
+
   const navigate = useNavigate();
 
   const [exercise, setExercise] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const { user, isLoggedIn } = useContext(AuthContext);
+  console.log("aqui usuario", user?.role);
 
   // Modal state
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeVideo, setActiveVideo] = useState(null);
 
   const storedToken = localStorage.getItem("authToken");
+  
 
   useEffect(() => {
     const fetchExercises = async () => {
+
+       if(!isLoggedIn) {
+    navigate("/exercises")
+  }
       try {
         const res = await axios.get(`${API_URL}/api/exercises/${exerciseId}`, {
           headers: { Authorization: `Bearer ${storedToken}` },
@@ -37,6 +47,8 @@ function ExerciseDetailsPage() {
 
     fetchExercises();
   }, []);
+
+ 
 
   const deleteExercise = () => {
     axios
@@ -109,22 +121,25 @@ function ExerciseDetailsPage() {
             <p className="mt-2 text-sm text-blue-400 capitalize">
               Difficulty: {exercise.difficulty}
             </p>
-             <Link
-          to={`/exercises/update/${exerciseId}`}
-          className="inline-block text-center w-full bg-gradient-to-r from-teal-950 to-teal-500 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-full mt-2"
-        >
-          Update
-        </Link>
-        <button
-          onClick={deleteExercise}
-          className="w-full bg-gradient-to-r from-red-950 to-red-300 active:brightness-125 transition duration-300 text-white  font-bold py-2 rounded-full mt-2"
-        >
-          Delete
-        </button>
+
+            {user && user.role === "admin" ? (
+              <>
+                <Link
+                  to={`/exercises/update/${exerciseId}`}
+                  className="inline-block text-center w-full bg-gradient-to-r from-teal-950 to-teal-500 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-full mt-2"
+                >
+                  Update
+                </Link>
+                <button
+                  onClick={deleteExercise}
+                  className="w-full bg-gradient-to-r from-red-950 to-red-300 active:brightness-125 transition duration-300 text-white  font-bold py-2 rounded-full mt-2"
+                >
+                  Delete
+                </button>
+              </>
+            ) : null}
           </div>
         )}
-
-       
       </div>
 
       {/* ────────── Modal ────────── */}
@@ -155,12 +170,13 @@ function ExerciseDetailsPage() {
           </div>
         </div>
       )}
-      <Link
-        to={`/exercises`}
+      <button
+        type="button"
+        onClick={() => navigate(-1)}
         className="text-center w-auto bg-gradient-to-r from-teal-950 to-teal-500 active:brightness-125 transition duration-300 text-white font-bold px-4 py-2 rounded-full mt-2"
       >
         Go Back
-      </Link>
+      </button>
     </div>
   );
 }

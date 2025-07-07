@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import imgBg from "../assets/Fondo-Exercises.png";
 import { Link } from "react-router-dom";
+
+import { AuthContext } from "../context/auth.context";
 
 const API_URL = "http://localhost:5005";
 
@@ -30,13 +32,16 @@ function ExerciseListPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeVideo, setActiveVideo] = useState(null);
 
-const storedToken = localStorage.getItem("authToken");
+ //para verficicar al usuarios del tipo Admin
+
+ const {user} = useContext(AuthContext);
+ console.log("aqui el usuario", user?.role)
 
   useEffect(() => {
     
       
         axios
-        .get(`${API_URL}/api/exercises`, { headers: { Authorization: `Bearer ${storedToken}` } } )
+        .get(`${API_URL}/api/exercises`,  )
         .then((res) => {
           const data = res.data.map((ex) => {
           const videoUrl =
@@ -118,13 +123,13 @@ const storedToken = localStorage.getItem("authToken");
             ))}
           </div>
         )}
-
-        <Link
+        {user && user.role === "admin" ? (<Link
           to="/exercises/addExercise"
           className="inline-block w-auto m-2 px-5 bg-gradient-to-r from-teal-950 to-teal-500 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-full mt-2"
         >
           Add Exercise
-        </Link>
+        </Link>): null }
+        
       </div>
 
       {/* ────────── Modal ────────── */}
