@@ -15,9 +15,12 @@ import UpdateExercisePage from './pages/UpdateExercisePage'
 import ProfilePage from './pages/ProfilePage'
 import UpdateRoutinePage from './pages/UpdateRoutinePage'
 
+import UpdateProfilePage from './pages/UpdateProfilePage'
+
 //aqui restricciones
 
 import IsPrivate from './components/isPrivate'
+
 
 
 function App() {
@@ -44,6 +47,8 @@ function App() {
         <Route exact path="/routines/:routineId/update" element={<UpdateRoutinePage />} />
 
         <Route exact path="/user" element={<ProfilePage />} />
+        <Route exact path="/user/edit" element={<UpdateProfilePage />} />
+        
 
       </Routes>
      

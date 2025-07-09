@@ -24,47 +24,53 @@ const makeEmbedUrl = (url) => {
 // ────────────────────────────
 
 function ExerciseListPage() {
+  // Datos del contexto de autenticación
+  const { user, isLoading: authLoading } = useContext(AuthContext);
 
+  // Estado propio del componente
   const [exercises, setExercises] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [exercisesLoading, setExercisesLoading] = useState(true);
 
   // Modal state
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeVideo, setActiveVideo] = useState(null);
 
- //para verficicar al usuarios del tipo Admin
-
- const {user} = useContext(AuthContext);
- console.log("aqui el usuario", user?.role)
-
+  // Log del rol solo cuando ya existe user
   useEffect(() => {
-    
-      
-        axios
-        .get(`${API_URL}/api/exercises`,  )
-        .then((res) => {
-          const data = res.data.map((ex) => {
+    if (user) console.log("aqui el usuario", user.role);
+  }, [user]);
+
+  // Carga de ejercicios
+  useEffect(() => {
+    axios
+      .get(`${API_URL}/api/exercises`)
+      .then((res) => {
+        const data = res.data.map((ex) => {
           const videoUrl =
-            (ex.videoUrl?.trim() || "https://www.youtube.com/watch?v=Pw8PYdZUlnI");
+            ex.videoUrl?.trim() || "https://www.youtube.com/watch?v=Pw8PYdZUlnI";
           return {
             ...ex,
-            videoUrl, // nos aseguramos de que siempre exista
+            videoUrl,
             thumbnail: getYoutubeThumbnail(videoUrl),
           };
         });
 
         setExercises(data);
-        setLoading(false)
-        })
-
-        // ① añadimos thumbnail (y un fallback si no hay videoUrl)
-        
-      .catch ((error)=> {
+      })
+      .catch((error) => {
         console.error("Failed to fetch exercises:", error);
       })
-  
-
+      .finally(() => setExercisesLoading(false));
   }, []);
+
+  // Mientras se comprueban auth **o** ejercicios, mostramos loader global
+  if (authLoading || exercisesLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-900">
+        <p className="text-white text-lg">Cargando…</p>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -77,9 +83,7 @@ function ExerciseListPage() {
       </h1>
 
       <div className="w-full max-w-6xl mt-20 bg-[#2a2f38] bg-opacity-50 rounded-3xl shadow-2xl p-8">
-        {loading ? (
-          <div className="text-center text-white">Loading exercises...</div>
-        ) : exercises.length === 0 ? (
+        {exercises.length === 0 ? (
           <div className="text-center text-white">No exercises found.</div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -123,13 +127,16 @@ function ExerciseListPage() {
             ))}
           </div>
         )}
-        {user && user.role === "admin" ? (<Link
-          to="/exercises/addExercise"
-          className="inline-block w-auto m-2 px-5 bg-gradient-to-r from-teal-950 to-teal-500 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-full mt-2"
-        >
-          Add Exercise
-        </Link>): null }
-        
+
+        {/* Botón para admins */}
+        {user?.role === "admin" && (
+          <Link
+            to="/exercises/addExercise"
+            className="inline-block w-auto m-2 px-5 bg-gradient-to-r from-teal-950 to-teal-500 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-full mt-2"
+          >
+            Add Exercise
+          </Link>
+        )}
       </div>
 
       {/* ────────── Modal ────────── */}

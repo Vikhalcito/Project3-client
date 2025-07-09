@@ -80,10 +80,10 @@ function AuthProviderWrapper(props) {
     // to be updated in the next step
     authenticateUser();
   }, []);
-
+console.log("aqui user", user)
   return (
                                                                 // Añadimos el storeToken
-    <AuthContext.Provider value={{ isLoggedIn, isLoading, user, storeToken, authenticateUser, logOutUser }}> 
+    <AuthContext.Provider value={{ isLoggedIn, isLoading, user, setUser, storeToken, authenticateUser, logOutUser }}> 
       {props.children}
     </AuthContext.Provider>
   )
