@@ -16,14 +16,9 @@ function AuthProviderWrapper(props) {
     localStorage.setItem('authToken', token);
   }
   
-  
-  
-  /* 
-    Functions for handling the authentication status (isLoggedIn, isLoading, user)
-    will be added here later in the next step 
-  */
- const authenticateUser = () => {           //  <==  ADD  
-    // Get the stored token from the localStorage
+ 
+ const authenticateUser = () => {           
+    
     const storedToken = localStorage.getItem('authToken');
 
     if (!storedToken) {
@@ -31,10 +26,10 @@ function AuthProviderWrapper(props) {
     setUser(null);
     setIsLoading(false);
 
-    return Promise.resolve();            // ⬅️ devolvemos una promesa resuelta
+    return Promise.resolve();            
   }
     
-    // If the token exists in the localStorage
+    
     if (storedToken) {
 
       return axios
@@ -43,46 +38,45 @@ function AuthProviderWrapper(props) {
         { headers: { Authorization: `Bearer ${storedToken}`} }
       )
       .then((response) => {
-        // If the server verifies that the JWT token is valid  
+        
         const user = response.data;
-       // Update state variables        
+             
         setIsLoggedIn(true);
         setIsLoading(false);
         setUser(user);        
       })
       .catch((error) => {
-        // If the server sends an error response (invalid token) 
-        // Update state variables         
+               
         setIsLoggedIn(false);
         setIsLoading(false);
         setUser(null);        
       });      
     } else {
-      // If the token is not available (or is removed)
+     
         setIsLoggedIn(false);
         setIsLoading(false);
         setUser(null);      
     }   
   }
 
-  const removeToken = () => {                    // <== ADD
-    // Upon logout, remove the token from the localStorage
+  const removeToken = () => {                   
+   
     localStorage.removeItem("authToken");
   }
- const logOutUser = () => {                   // <== ADD    
-    // To log out the user, remove the token
+ const logOutUser = () => {                 
+    
     removeToken();
-    // and update the state variables    
+     
     authenticateUser();
   }  
 
-  useEffect(() => {                 //  <==  ADD                                   
-    // to be updated in the next step
+  useEffect(() => {                                               
+    
     authenticateUser();
   }, []);
-console.log("aqui user", user)
+
   return (
-                                                                // Añadimos el storeToken
+    
     <AuthContext.Provider value={{ isLoggedIn, isLoading, user, setUser, storeToken, authenticateUser, logOutUser }}> 
       {props.children}
     </AuthContext.Provider>

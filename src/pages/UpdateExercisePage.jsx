@@ -9,11 +9,11 @@ export default function UpdateExercisePage() {
   console.log(exerciseId)
   const navigate = useNavigate();
   const [initialValues, setInitialValues] = useState(null);
-//const [loading, setLoading] = useState(false);
+
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
 
-  // Traer datos existentes
+ 
   useEffect(() => {
     const storedToken = localStorage.getItem("authToken");
     axios
@@ -44,7 +44,7 @@ export default function UpdateExercisePage() {
   });
    }
 
-  // Esperar a tener los datos antes de renderizar
+  
   if (!initialValues && !error) return null;
 
   return (
@@ -52,7 +52,7 @@ export default function UpdateExercisePage() {
       title="Update Exercise"
       initialValues={initialValues}
       onSubmit={handleUpdate}
-      //loading={loading}
+      
       successMsg={success && "Exercise updated successfully!"}
       errorMsg={error}
     />

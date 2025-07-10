@@ -94,13 +94,13 @@ export default function ExerciseForm({
             <button
             type="submit"
             disabled={loading}
-            className="w-full bg-gradient-to-r from-teal-950 to-teal-500 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-full mt-2"
+            className="w-full bg-gradient-to-r from-indigo-700 to-teal-400 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-xl mt-2"
           >
             Add Exercise
           </button>
           <Link
             to="/exercises"
-            className="block text-center w-full bg-gradient-to-r from-red-950 to-red-300 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-full mt-2"
+            className="block text-center w-full bg-gradient-to-r from-red-950 to-red-300 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-xl mt-2"
           >
             Cancel
           </Link>
@@ -109,13 +109,13 @@ export default function ExerciseForm({
             <button
             type="submit"
             disabled={loading}
-            className="w-full bg-gradient-to-r from-teal-950 to-teal-500 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-full mt-2"
+            className="w-full bg-gradient-to-r from-indigo-900 to-teal-500 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-xl mt-2"
           >
             Update Exercise
           </button>
           <Link
             to={`/exercises/${initialValues._id}`}
-            className="block text-center w-full bg-gradient-to-r from-red-950 to-red-300 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-full mt-2"
+            className="block text-center w-full bg-gradient-to-r from-red-950 to-red-300 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-xl mt-2"
           >
             Cancel
           </Link>

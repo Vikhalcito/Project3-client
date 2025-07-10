@@ -10,11 +10,10 @@ import { AuthContext } from "../context/auth.context";
 
 const API_URL = "http://localhost:5005";
 function UpdateRoutinePage() {
-  const { routineId } = useParams(); // rutina id desde la URL
+  const { routineId } = useParams();
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
 
-  //estados 
   const [name, setName] = useState("");
   const [difficulty, setDifficulty] = useState("low");
   const [category, setCategory] = useState("stretching");
@@ -26,7 +25,6 @@ function UpdateRoutinePage() {
   const [selectedExercise, setSelectedExercise] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  //ejercicios disponibles 
   useEffect(() => {
     const storedToken = localStorage.getItem("authToken");
     axios
@@ -45,7 +43,6 @@ function UpdateRoutinePage() {
       .catch((err) => console.error("Error al cargar ejercicios:", err));
   }, []);
 
-  //datos de la rutina
   useEffect(() => {
     const storedToken = localStorage.getItem("authToken");
 
@@ -58,13 +55,12 @@ function UpdateRoutinePage() {
         setName(name);
         setDifficulty(difficulty);
         setCategory(category);
-        setSelectedIds(exercises.map((ex) => (ex._id ? ex._id : ex))); // por si vienen objetos o ids
+        setSelectedIds(exercises.map((ex) => (ex._id ? ex._id : ex)));
       })
       .catch((err) => console.error("Error al cargar la rutina:", err))
       .finally(() => setLoading(false));
   }, [routineId]);
 
-  //actualizar lista filtrada cada vez que cambia el filtro
   useEffect(() => {
     if (filterType === "all") {
       setFilteredExercises(allExercises);
@@ -75,14 +71,12 @@ function UpdateRoutinePage() {
     }
   }, [filterType, allExercises]);
 
-  //seleccionar/deseleccionar ejercicio
   const toggleExercise = (eid) => {
     setSelectedIds((prev) =>
       prev.includes(eid) ? prev.filter((id) => id !== eid) : [...prev, eid]
     );
   };
 
-  //updatecambios
   const handleSubmit = (e) => {
     e.preventDefault();
     const storedToken = localStorage.getItem("authToken");
@@ -153,7 +147,6 @@ function UpdateRoutinePage() {
             </select>
           </div>
 
-          {/* Filtro de ejercicios */}
           <ExerciseFilter
             types={exerciseTypes}
             selected={filterType}
@@ -186,7 +179,6 @@ function UpdateRoutinePage() {
           </Link>
         </form>
 
-        {/* Modal de información del ejercicio */}
         <ExerciseModal
           exercise={selectedExercise}
           onClose={() => setSelectedExercise(null)}
@@ -195,6 +187,5 @@ function UpdateRoutinePage() {
     </div>
   );
 }
-
 
 export default UpdateRoutinePage;

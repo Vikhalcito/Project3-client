@@ -15,7 +15,7 @@ function LoginPage() {
 
   const navigate = useNavigate();
   
-  const { storeToken, authenticateUser } = useContext(AuthContext); //Aqui el storeToken
+  const { storeToken, authenticateUser } = useContext(AuthContext); 
 
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
@@ -23,12 +23,12 @@ function LoginPage() {
   const handleLoginSubmit = (e) => {
     e.preventDefault();
     const requestBody = { email, password };
-    console.log(requestBody);
+    
     axios
       .post(`${API_URL}/auth/login`, requestBody)
       .then((response) => {
-        console.log('JWT token', response.data.authToken);
-        storeToken(response.data.authToken); // StoreToken 
+        
+        storeToken(response.data.authToken);
         return authenticateUser();
       })
       .then(()=> {
@@ -45,7 +45,7 @@ function LoginPage() {
       className="pt-32 flex flex-col items-center justify-start px-4 min-h-screen bg-fixed bg-cover bg-center bg-no-repeat relative"
       style={{ backgroundImage: `url(${imgHome})` }}
     >
-      {/* Título principal */}
+     
       <h1
         className="absolute top-24 left-1/2 -translate-x-1/2 
           text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-blue-800 to-teal-400 

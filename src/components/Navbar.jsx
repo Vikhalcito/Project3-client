@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/auth.context";
-import { Home, LogIn, UserPlus, User, LogOut } from "lucide-react";
+import { Home, LogIn, UserPlus, User, LogOut, Dumbbell} from "lucide-react";
+import czLogo from "../assets/CaliZenics-Logo.png";
 
 function Navbar() {
   const { isLoggedIn, logOutUser } = useContext(AuthContext);
@@ -13,7 +14,7 @@ function Navbar() {
                     py-2"
     >
       <div className="px-4 flex items-center justify-between flex-1">
-        <h1 className="text-white font-title text-xl">CaliZenics</h1>
+        <img src={czLogo} alt="CZ Logo" className="w-32 object-contain" />
 
         <Link
           to="/"
@@ -34,11 +35,11 @@ function Navbar() {
             </Link>
 
             <Link
-              to="/signup"
+              to="/exercises"
               aria-label="Sign Up"
               className="text-gray-200 hover:text-yellow-300 transition"
             >
-              <UserPlus className="w-6 h-6" />
+              <Dumbbell className="w-6 h-6" />
             </Link>
           </>
         )}
@@ -51,6 +52,13 @@ function Navbar() {
               className="text-gray-200 hover:text-yellow-300 transition"
             >
               <User className="w-6 h-6" />
+            </Link>
+            <Link
+              to="/exercises"
+              aria-label="Sign Up"
+              className="text-gray-200 hover:text-yellow-300 transition"
+            >
+              <Dumbbell className="w-6 h-6" />
             </Link>
 
             <button

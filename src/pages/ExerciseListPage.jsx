@@ -7,8 +7,6 @@ import { AuthContext } from "../context/auth.context";
 
 const API_URL = "http://localhost:5005";
 
-// ────────────────────────────
-// Helpers reutilizables
 const getYoutubeId = (url = "") =>
   url.match(/(?:youtube\.com.*(?:\?|&)v=|youtu\.be\/)([^&\n?#]+)/)?.[1] ?? null;
 
@@ -21,26 +19,26 @@ const makeEmbedUrl = (url) => {
   const id = getYoutubeId(url);
   return id ? `https://www.youtube.com/embed/${id}?autoplay=1` : null;
 };
-// ────────────────────────────
+
 
 function ExerciseListPage() {
-  // Datos del contexto de autenticación
+  
   const { user, isLoading: authLoading } = useContext(AuthContext);
 
-  // Estado propio del componente
+ 
   const [exercises, setExercises] = useState([]);
   const [exercisesLoading, setExercisesLoading] = useState(true);
 
-  // Modal state
+  
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeVideo, setActiveVideo] = useState(null);
 
-  // Log del rol solo cuando ya existe user
+
   useEffect(() => {
     if (user) console.log("aqui el usuario", user.role);
   }, [user]);
 
-  // Carga de ejercicios
+  
   useEffect(() => {
     axios
       .get(`${API_URL}/api/exercises`)
@@ -63,7 +61,7 @@ function ExerciseListPage() {
       .finally(() => setExercisesLoading(false));
   }, []);
 
-  // Mientras se comprueban auth **o** ejercicios, mostramos loader global
+  
   if (authLoading || exercisesLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-900">
@@ -78,7 +76,7 @@ function ExerciseListPage() {
       style={{ backgroundImage: `url(${imgBg})` }}
     >
       {/* Título principal */}
-      <h1 className="absolute top-24 left-1/2 -translate-x-1/2 text-transparent bg-clip-text bg-gradient-to-r from-teal-950 via-teal-300 to-teal-950 text-6xl sm:text-5xl font-extrabold font-title tracking-wide">
+      <h1 className="absolute top-24 left-1/2 -translate-x-1/2 text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-teal-500 text-6xl sm:text-5xl font-extrabold font-title tracking-wide">
         Exercises
       </h1>
 
@@ -113,7 +111,7 @@ function ExerciseListPage() {
                   </p>
                 </Link>
 
-                {/* Botón que abre el modal */}
+                
                 <button
                   onClick={() => {
                     setActiveVideo(exercise.videoUrl);
@@ -128,18 +126,18 @@ function ExerciseListPage() {
           </div>
         )}
 
-        {/* Botón para admins */}
+        
         {user?.role === "admin" && (
           <Link
             to="/exercises/addExercise"
-            className="inline-block w-auto m-2 px-5 bg-gradient-to-r from-teal-950 to-teal-500 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-full mt-2"
+            className="inline-block w-auto m-2 px-5 bg-gradient-to-r from-indigo-900 to-teal-500 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-xl mt-2"
           >
             Add Exercise
           </Link>
         )}
       </div>
 
-      {/* ────────── Modal ────────── */}
+      
       {isModalOpen && activeVideo && (
         <div
           className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50"

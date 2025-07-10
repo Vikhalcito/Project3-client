@@ -24,7 +24,7 @@ export default function RoutinePage() {
   const navigate = useNavigate();
 
   const {user} = useContext(AuthContext);
-  console.log(user)
+  
 
   useEffect(() => {
     const storedToken = localStorage.getItem("authToken")
@@ -35,7 +35,7 @@ export default function RoutinePage() {
         setAllExercises(exercises);
         setFilteredExercises(exercises);
 
-        //Extraer tipos únicos dinámicamente
+        
         const uniqueTypes = Array.from(
           new Set(exercises.map((ex) => ex.category).filter(Boolean))
         );
@@ -149,13 +149,13 @@ if (!user) {
 
         <button
           type="submit"
-          className="w-full bg-gradient-to-r from-indigo-900 to-teal-500 active:brightness-125 transition duration-300 font-bold rounded-full py-2 text-white"
+          className="w-full bg-gradient-to-r from-indigo-900 to-teal-500 active:brightness-125 transition duration-300 font-bold rounded-xl py-2 text-white"
         >
           Guardar Rutina
         </button>
         <Link
             to={`/${user._id}/routines`}
-            className="block text-center w-full bg-gradient-to-r from-red-950 to-red-300 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-full mt-2"
+            className="block text-center w-full bg-gradient-to-r from-red-950 to-red-300 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-xl mt-2"
           >
             Cancel
           </Link>

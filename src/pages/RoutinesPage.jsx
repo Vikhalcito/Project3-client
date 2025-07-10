@@ -13,7 +13,7 @@ function RoutinesPage() {
   const [routines, setRoutines] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const [deletingId, setDeletingId] = useState(null); //Borrar rutina, state para el id
+  const [deletingId, setDeletingId] = useState(null); 
 
   const navigate = useNavigate();
 
@@ -21,7 +21,7 @@ function RoutinesPage() {
 
   useEffect(() => {
   if (!isLoggedIn) {
-    navigate("/");          // o a /login
+    navigate("/");       
   }
 }, [isLoggedIn, navigate]);
 
@@ -110,7 +110,7 @@ function RoutinesPage() {
 
               <button
                 onClick={(e) => {
-                  e.stopPropagation(); // evita abrir el <Link>
+                  e.stopPropagation(); 
                   handleDelete(routine._id);
                 }}
                 disabled={deletingId === routine._id}

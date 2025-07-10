@@ -11,7 +11,7 @@ function RoutineDetailsPage() {
 
  const [routine, setRoutine] = useState([]);
 const [exercises, setExercises] = useState([]);
-  //const [loading, setLoading] = useState(true);
+ 
   
 const {user, isLoading} = useContext(AuthContext)
 const { routineId } = useParams();
@@ -53,14 +53,7 @@ const { routineId } = useParams();
                 className="bg-gray-800 bg-opacity-60 rounded-xl p-4 shadow-md text-white hover:shadow-xl transition"
               >
               <Link to={`/exercises/${exercise._id}`}>
-                {/* {thumbnail && (
-                  <img
-                    src={thumbnail}
-                    alt={`Thumbnail for ${exercise.name}`}
-                    className="w-full h-48 object-cover rounded-lg mb-3"
-                  />
-                )} */}
-
+               
                 <h2 className="text-2xl text-center font-bold mb-1">
                   {exercise.name}
                 </h2>

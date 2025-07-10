@@ -1,46 +1,37 @@
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Camera } from "lucide-react";
-import { AuthContext } from "../context/auth.context";   // ⬅️  nuevo
+import { AuthContext } from "../context/auth.context";  
 
 const CLOUD_NAME   = "dzbdckbli";
 const UPLOAD_PRESET = "UserTest";
 
 function PhotoUploader({ onPhotoUpload }) {
-  const { user, setUser } = useContext(AuthContext);     // ⬅️  accedemos al usuario
+  const { user, setUser } = useContext(AuthContext);     
   const [photoFile,    setPhotoFile]    = useState(null);
 
-  // ⬇️  Vista previa se inicializa con la foto existente (si la hay)
+  
   const [photoPreview, setPhotoPreview] = useState(user?.userImg || "");
 
   const [loading,      setLoading]      = useState(false);
 
-  /* ------------------------------------------------------------------ */
-  /* 1. Si el usuario se recupera después de montar el componente        */
-  /*    (típico cuando verify tarda un poco), nos aseguramos de mostrar  */
-  /*    la foto en cuanto llegue.                                        */
-  /* ------------------------------------------------------------------ */
+ 
   useEffect(() => {
     if (user?.userImg && user.userImg !== photoPreview) {
       setPhotoPreview(user.userImg);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user?.userImg]);   // nos interesa solo ese campo
+  }, [user?.userImg]);  
 
-  /* ------------------------------------------------------------------ */
-  /* 2. Seleccionar una nueva foto                                       */
-  /* ------------------------------------------------------------------ */
   const handleSelectPhoto = (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     setPhotoFile(file);
-    setPhotoPreview(URL.createObjectURL(file));  // preview local instantánea
+    setPhotoPreview(URL.createObjectURL(file));  
   };
 
-  /* ------------------------------------------------------------------ */
-  /* 3. Subir a Cloudinary                                               */
-  /* ------------------------------------------------------------------ */
+  
   const handleUploadPhoto = async () => {
     if (!photoFile) return;
 
@@ -58,10 +49,7 @@ function PhotoUploader({ onPhotoUpload }) {
       );
 
       const uploadedPhotoURL = data.secure_url;
-      onPhotoUpload(uploadedPhotoURL);           // avisamos al padre
-
-      /* Opcional pero recomendable: actualizamos el contexto para que
-         toda la app muestre la nueva foto inmediatamente                */
+      onPhotoUpload(uploadedPhotoURL);           
       setUser?.({ ...user, userImg: uploadedPhotoURL });
 
     } catch (err) {
@@ -71,14 +59,12 @@ function PhotoUploader({ onPhotoUpload }) {
     }
   };
 
-  /* ------------------------------------------------------------------ */
-  /* 4. Render                                                           */
-  /* ------------------------------------------------------------------ */
+ 
   return (
     <div className="flex flex-col items-center space-y-2 bg-[#2a2f38]/70 rounded-3xl shadow-2xl p-8">
-      {/* Foto + icono */}
+    
       <div className="relative w-32 h-32">
-        {/* Avatar */}
+        
         <div className="w-full h-full rounded-full overflow-hidden border border-gray-400">
           {photoPreview ? (
             <img
@@ -93,7 +79,7 @@ function PhotoUploader({ onPhotoUpload }) {
           )}
         </div>
 
-        {/* Input oculto */}
+       
         <input
           id="photo-input"
           type="file"
@@ -102,20 +88,20 @@ function PhotoUploader({ onPhotoUpload }) {
           className="hidden"
         />
 
-        {/* Icono superpuesto */}
+     
         <label
           htmlFor="photo-input"
-          className="absolute top-0 right-0 translate-x-1/3 -translate-y-1/3 flex items-center justify-center w-9 h-9 rounded-full bg-teal-600 shadow-lg cursor-pointer hover:bg-teal-700 transition"
+          className="absolute top-0 right-0  translate-x-1/3 -translate-y-1/3 flex items-center justify-center w-9 h-9 rounded-full bg-gradient-to-r from-indigo-900 to-teal-500 active:brightness-125 transition duration-300 shadow-lg cursor-pointer hover:bg-teal-700 transition"
         >
           <Camera className="w-5 h-5 text-white" />
         </label>
       </div>
 
-      {/* Botón de subida */}
+    
       <button
         onClick={handleUploadPhoto}
         disabled={loading}
-        className="mt-2 px-4 py-2 bg-teal-600 rounded text-white disabled:opacity-60"
+        className="mt-2 px-4 py-2 bg-gradient-to-r from-indigo-900 to-teal-500 active:brightness-125 transition duration-300 rounded-xl text-white font-bold"
       >
         {loading ? "Subiendo…" : "Subir foto"}
       </button>

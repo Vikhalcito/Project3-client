@@ -17,9 +17,8 @@ function ExerciseDetailsPage() {
   const [loading, setLoading] = useState(true);
 
   const { user, isLoggedIn } = useContext(AuthContext);
-  console.log("aqui usuario", user?.role);
-
-  // Modal state
+ 
+  
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeVideo, setActiveVideo] = useState(null);
 
@@ -69,12 +68,11 @@ function ExerciseDetailsPage() {
       : null;
   };
 
-  // Si cada ejercicio trae su propia URL de vídeo, usa exercise.videoUrl;
-  // para este ejemplo usamos una fija:
+  
   const defaultVideoUrl = "https://www.youtube.com/watch?v=Pw8PYdZUlnI";
   const thumbnail = getYoutubeThumbnail(defaultVideoUrl);
 
-  // Helper para generar el embed de YouTube
+  
   const makeEmbedUrl = (url) => {
     const id = url.match(
       /(?:youtube\.com.*(?:\?|&)v=|youtu\.be\/)([^&\n?#]+)/
@@ -105,10 +103,10 @@ function ExerciseDetailsPage() {
                 className="w-full h-48 md:h-64 object-cover rounded-lg mb-3"
               />
             )}
-            {/* Botón que abre el modal */}
+            
             <button
               onClick={() => {
-                setActiveVideo(defaultVideoUrl); // o exercise.videoUrl
+                setActiveVideo(defaultVideoUrl); 
                 setIsModalOpen(true);
               }}
               className="text-teal-400 text-sm mt-2 inline-block underline hover:text-teal-300 transition"
@@ -126,13 +124,13 @@ function ExerciseDetailsPage() {
               <>
                 <Link
                   to={`/exercises/update/${exerciseId}`}
-                  className="inline-block text-center w-full bg-gradient-to-r from-teal-950 to-teal-500 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-full mt-2"
+                  className="inline-block text-center w-full bg-gradient-to-r from-indigo-900 to-teal-500 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-xl mt-2"
                 >
                   Update
                 </Link>
                 <button
                   onClick={deleteExercise}
-                  className="w-full bg-gradient-to-r from-red-950 to-red-300 active:brightness-125 transition duration-300 text-white  font-bold py-2 rounded-full mt-2"
+                  className="w-full bg-gradient-to-r from-red-950 to-red-300 active:brightness-125 transition duration-300 text-white  font-bold py-2 rounded-xl mt-2"
                 >
                   Delete
                 </button>
@@ -142,7 +140,7 @@ function ExerciseDetailsPage() {
         )}
       </div>
 
-      {/* ────────── Modal ────────── */}
+      
       {isModalOpen && activeVideo && (
         <div
           className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50"
@@ -173,7 +171,7 @@ function ExerciseDetailsPage() {
       <button
         type="button"
         onClick={() => navigate(-1)}
-        className="text-center w-auto bg-gradient-to-r from-teal-950 to-teal-500 active:brightness-125 transition duration-300 text-white font-bold px-4 py-2 rounded-full mt-2"
+        className="text-center w-auto bg-gradient-to-r from-indigo-900 to-teal-500 active:brightness-125 transition duration-300 text-white font-bold px-4 py-2 rounded-xl mt-2"
       >
         Go Back
       </button>

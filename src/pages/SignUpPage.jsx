@@ -37,7 +37,7 @@ function SignUpPage() {
           className="pt-32 flex flex-col items-center justify-start px-4 min-h-screen bg-fixed bg-cover bg-center bg-no-repeat relative"
           style={{ backgroundImage: `url(${imgHome})` }}
         >
-          {/* Título principal */}
+          
           <h1
             className="absolute top-24 left-1/2 -translate-x-1/2 
               text-transparent bg-clip-text bg-gradient-to-r from-teal-950 via-teal-600 to-teal-950 
@@ -46,12 +46,12 @@ function SignUpPage() {
             CaliZenics
           </h1>
     
-          {/* Login Card - separado del h1 con margen superior para evitar solapamiento */}
+          
           <div className="w-full max-w-sm mt-10 bg-[#2a2f38] bg-opacity-50 rounded-3xl shadow-2xl p-8">
             <h2 className="text-3xl font-bold text-white text-center mb-6">Signup</h2>
         
 
-        {/* Formulario de Log in */}
+        
         <form onSubmit={handleSignupSubmit} className="space-y-4">
 
           <input
@@ -90,7 +90,7 @@ function SignUpPage() {
           </button>
         </form>
         { errorMessage && <p className="error-message">{errorMessage}</p> }
-        {/* Footer */}
+       
        
          <div className="mt-6 text-center text-gray-200">
           Already have an account?

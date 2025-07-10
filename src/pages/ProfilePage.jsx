@@ -12,7 +12,6 @@ export default function ProfilePage() {
     return <div className="pt-32 text-white">Cargando…</div>;
   }
 
-  // Si no hay usuario, redirige inmediatamente
   if (!user) {
     
     return <Navigate to="/login" replace />;
@@ -45,11 +44,11 @@ export default function ProfilePage() {
       className="pt-32 flex flex-col items-center justify-start px-4 min-h-screen bg-fixed bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: `url(${imgHome})` }}
     >
-      {/* Tarjeta principal */}
+     
       <div className="w-80 bg-[#2a2f38]/50 rounded-2xl shadow-xl flex flex-col items-center p-6 text-gray-700">
-        {/* Contenedor foto de perfil, nombre, email */}
+       
         <div className="relative w-full mx-auto flex flex-col items-center bg-gray-800 bg-opacity-50 rounded-xl p-4 shadow-md text-white ">
-          {/* Avatar */}
+          
           <Link
                 className="absolute top-2 right-2 rounded-full
                text-white hover:bg-red-900/20 
@@ -77,16 +76,16 @@ export default function ProfilePage() {
             )}
           </div>
            
-          {/* USERNAME */}
+         
           <p className="text-sm font-semibold text-gray-100 text-center">
             {displayName}
           </p>
 
-          {/* Email en itálica */}
+          
           <p className="text-xs italic text-gray-400 text-center">
             {email}
           </p>
-          {/* Age | Weight | Height */}
+          
           <div className="mt-6 grid grid-cols-3 gap-x-4 text-xs font-medium w-full text-center text-white">
   <span className="flex flex-col items-center">
     <Cake className="w-4 h-4 mb-1" />
@@ -107,7 +106,7 @@ export default function ProfilePage() {
  
         </div>
 
-        {/* Descripción */}
+        
 
         <div className="mt-6 w-full bg-gray-900 bg-opacity-40 rounded-xl text-center text-xs leading-relaxed">
           <p className="m-2 text-sm text-gray-200  px-2">
@@ -115,7 +114,7 @@ export default function ProfilePage() {
           </p>
         </div>
 
-        {/* Fila final: Botón + contador */}
+        
         <div className="mt-8 w-full flex items-center justify-between">
           <Link
             to={userPath}
