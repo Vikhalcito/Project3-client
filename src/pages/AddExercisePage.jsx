@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import ExerciseForm from "../components/ExerciseForm";
 import axios from "axios";
 
+//const API_URL = "http://localhost:5005";
 const API_URL = "https://calizenics-server.onrender.com";
 
 export default function AddExercisePage() {

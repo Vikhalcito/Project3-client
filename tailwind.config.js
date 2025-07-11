@@ -12,6 +12,7 @@ export default {
     },},
   },
   plugins: [
+
     plugin(function ({ addUtilities }) {
       addUtilities({
         '.text-stroke': {
@@ -25,5 +26,6 @@ export default {
         },
       })
     }),
+   require('@tailwindcss/typography'),
   ],
 }

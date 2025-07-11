@@ -1,8 +1,9 @@
-
-export default function ExerciseFilter({ types, selected, onSelect }) {
+export default function ExerciseFilter({ types, selected, onSelect, label }) {
   return (
     <div>
-      <span className="block text-white font-medium pb-2">Filtrar por tipo</span>
+      {label && (
+        <span className="block text-white font-medium pb-2">{label}</span>
+      )}
       <div className="flex flex-wrap gap-2">
         <button
           type="button"
@@ -12,6 +13,8 @@ export default function ExerciseFilter({ types, selected, onSelect }) {
               ? "bg-teal-600 text-white"
               : "bg-gray-700/50 text-gray-300"
           }`}
+          aria-pressed={selected === "all"}
+          aria-label={`${label} - Todos`}
         >
           Todos
         </button>
@@ -25,8 +28,10 @@ export default function ExerciseFilter({ types, selected, onSelect }) {
                 ? "bg-teal-600 text-white"
                 : "bg-gray-700/50 text-gray-300"
             }`}
+            aria-pressed={selected === t}
+            aria-label={`${label} - ${t}`}
           >
-            {t}
+            {t.charAt(0).toUpperCase() + t.slice(1)}
           </button>
         ))}
       </div>

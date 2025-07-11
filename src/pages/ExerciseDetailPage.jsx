@@ -3,9 +3,11 @@ import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
+import { Play } from "lucide-react";
 
 import imgBg from "../assets/Fondo-Exercises.png";
 
+//const API_URL = "http://localhost:5005";
 const API_URL = "https://calizenics-server.onrender.com";
 
 function ExerciseDetailsPage() {
@@ -17,26 +19,22 @@ function ExerciseDetailsPage() {
   const [loading, setLoading] = useState(true);
 
   const { user, isLoggedIn } = useContext(AuthContext);
- 
-  
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeVideo, setActiveVideo] = useState(null);
 
   const storedToken = localStorage.getItem("authToken");
-  
 
   useEffect(() => {
     const fetchExercises = async () => {
-
-       if(!isLoggedIn) {
-    navigate("/exercises")
-  }
+      if (!isLoggedIn) {
+        navigate("/exercises");
+      }
       try {
         const res = await axios.get(`${API_URL}/api/exercises/${exerciseId}`, {
           headers: { Authorization: `Bearer ${storedToken}` },
         });
         setExercise(res.data);
-        console.log(res.data);
       } catch (error) {
         console.error("Failed to fetch exercises:", error);
       } finally {
@@ -46,8 +44,6 @@ function ExerciseDetailsPage() {
 
     fetchExercises();
   }, []);
-
- 
 
   const deleteExercise = () => {
     axios
@@ -68,11 +64,11 @@ function ExerciseDetailsPage() {
       : null;
   };
 
-  
   const defaultVideoUrl = "https://www.youtube.com/watch?v=Pw8PYdZUlnI";
-  const thumbnail = getYoutubeThumbnail(defaultVideoUrl);
+  const thumbnail =
+    getYoutubeThumbnail(exercise.videoUrl) ||
+    getYoutubeThumbnail(defaultVideoUrl);
 
-  
   const makeEmbedUrl = (url) => {
     const id = url.match(
       /(?:youtube\.com.*(?:\?|&)v=|youtu\.be\/)([^&\n?#]+)/
@@ -92,7 +88,7 @@ function ExerciseDetailsPage() {
           <div className="text-center text-white">No exercises found.</div>
         ) : (
           <div className="max-w-md w-full mx-auto bg-gray-800 bg-opacity-70 rounded-xl p-4 shadow-md text-white hover:shadow-xl transition">
-            <h2 className="text-4xl text-center text-white font-bold mb-1">
+            <h2 className="text-xl text-center font-semibold mb-2 py-1 px-2">
               {exercise.name}
             </h2>
 
@@ -100,25 +96,54 @@ function ExerciseDetailsPage() {
               <img
                 src={thumbnail}
                 alt={`Thumbnail for ${exercise.name}`}
-                className="w-full h-48 md:h-64 object-cover rounded-lg mb-3"
+                className="w-full h-48 object-cover rounded-lg mb-3"
               />
             )}
-            
-            <button
-              onClick={() => {
-                setActiveVideo(defaultVideoUrl); 
-                setIsModalOpen(true);
-              }}
-              className="text-teal-400 text-sm mt-2 inline-block underline hover:text-teal-300 transition"
-            >
-              Watch Video
-            </button>
+            <div className="grid grid-cols-2 items-center gap-2 mt-2">
+              <label className="text-sm font-medium">Category:</label>
+              <p className="text-xs text-teal-300 border border-teal-300 px-2 py-0.5 mx-auto my-1 rounded-full text-center">
+                {exercise.category}
+              </p>
+            </div>
 
-            <p className="text-sm text-teal-300">{exercise.category}</p>
-            <p className="mt-2 text-sm text-gray-200">{exercise.description}</p>
-            <p className="mt-2 text-sm text-blue-400 capitalize">
-              Difficulty: {exercise.difficulty}
-            </p>
+            
+            <div className="grid grid-cols-2 items-center gap-2 mt-2">
+              <label className="text-sm font-medium">Difficulty:</label>
+              <p
+                className={`text-xs px-2 py-0.5 rounded-full border mx-auto my-1 capitalize text-center ${
+                  exercise.difficulty === "low"
+                    ? "border-green-400 text-green-600"
+                    : exercise.difficulty === "medium"
+                    ? "border-yellow-300 text-yellow-300"
+                    : "border-red-400 text-red-600"
+                }`}
+              >
+                {exercise.difficulty}
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 items-center gap-2 mt-2">
+              <label className="text-sm font-medium">Video:</label>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setActiveVideo(exercise.videoUrl);
+                  setIsModalOpen(true);
+                }}
+                className="w-auto mx-auto p-2 my-1 h-8 flex items-center justify-center text-indigo-300 hover:text-teal-300 rounded-full border border-indigo-400 gap-1"
+              >
+                <Play className="w-4 h-4 text-current" />
+                <span className="text-sm">Play</span>
+              </button>
+            </div>
+
+            <div className="my-1">
+              <label className="text-md font-medium">Description:</label>
+              <p className="bg-gray-900 bg-opacity-40 rounded-xl p-2 mt-1 text-sm text-white border border-gray-700">
+                {exercise.description}
+              </p>
+            </div>
 
             {user && user.role === "admin" ? (
               <>
@@ -140,7 +165,6 @@ function ExerciseDetailsPage() {
         )}
       </div>
 
-      
       {isModalOpen && activeVideo && (
         <div
           className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50"

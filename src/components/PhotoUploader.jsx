@@ -1,37 +1,34 @@
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Camera } from "lucide-react";
-import { AuthContext } from "../context/auth.context";  
+import { AuthContext } from "../context/auth.context";
 
-const CLOUD_NAME   = "dzbdckbli";
+const CLOUD_NAME = "dzbdckbli";
 const UPLOAD_PRESET = "UserTest";
 
 function PhotoUploader({ onPhotoUpload }) {
-  const { user, setUser } = useContext(AuthContext);     
-  const [photoFile,    setPhotoFile]    = useState(null);
+  const { user, setUser } = useContext(AuthContext);
+  const [photoFile, setPhotoFile] = useState(null);
 
-  
   const [photoPreview, setPhotoPreview] = useState(user?.userImg || "");
 
-  const [loading,      setLoading]      = useState(false);
+  const [loading, setLoading] = useState(false);
 
- 
   useEffect(() => {
     if (user?.userImg && user.userImg !== photoPreview) {
       setPhotoPreview(user.userImg);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user?.userImg]);  
+  }, [user?.userImg]);
 
   const handleSelectPhoto = (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     setPhotoFile(file);
-    setPhotoPreview(URL.createObjectURL(file));  
+    setPhotoPreview(URL.createObjectURL(file));
   };
 
-  
   const handleUploadPhoto = async () => {
     if (!photoFile) return;
 
@@ -49,9 +46,8 @@ function PhotoUploader({ onPhotoUpload }) {
       );
 
       const uploadedPhotoURL = data.secure_url;
-      onPhotoUpload(uploadedPhotoURL);           
+      onPhotoUpload(uploadedPhotoURL);
       setUser?.({ ...user, userImg: uploadedPhotoURL });
-
     } catch (err) {
       console.error("Error al subir la imagen:", err);
     } finally {
@@ -59,12 +55,9 @@ function PhotoUploader({ onPhotoUpload }) {
     }
   };
 
- 
   return (
-    <div className="flex flex-col items-center space-y-2 bg-[#2a2f38]/70 rounded-3xl shadow-2xl p-8">
-    
+    <div className="flex flex-col items-center space-y-2 bg-gray-800/70 rounded-3xl shadow-2xl p-8">
       <div className="relative w-32 h-32">
-        
         <div className="w-full h-full rounded-full overflow-hidden border border-gray-400">
           {photoPreview ? (
             <img
@@ -79,7 +72,6 @@ function PhotoUploader({ onPhotoUpload }) {
           )}
         </div>
 
-       
         <input
           id="photo-input"
           type="file"
@@ -88,7 +80,6 @@ function PhotoUploader({ onPhotoUpload }) {
           className="hidden"
         />
 
-     
         <label
           htmlFor="photo-input"
           className="absolute top-0 right-0  translate-x-1/3 -translate-y-1/3 flex items-center justify-center w-9 h-9 rounded-full bg-gradient-to-r from-indigo-900 to-teal-500 active:brightness-125 transition duration-300 shadow-lg cursor-pointer hover:bg-teal-700 transition"
@@ -97,7 +88,6 @@ function PhotoUploader({ onPhotoUpload }) {
         </label>
       </div>
 
-    
       <button
         onClick={handleUploadPhoto}
         disabled={loading}

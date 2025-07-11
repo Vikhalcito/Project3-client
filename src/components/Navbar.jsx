@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/auth.context";
-import { Home, LogIn, UserPlus, User, LogOut, Dumbbell} from "lucide-react";
+import { Home, LogIn, UserPlus, User, LogOut, Dumbbell } from "lucide-react";
 import czLogo from "../assets/CaliZenics-Logo.png";
 
 function Navbar() {

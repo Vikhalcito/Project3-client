@@ -14,8 +14,8 @@ function LoginPage() {
   const [errorMessage, setErrorMessage] = useState(undefined);
 
   const navigate = useNavigate();
-  
-  const { storeToken, authenticateUser } = useContext(AuthContext); 
+
+  const { storeToken, authenticateUser } = useContext(AuthContext);
 
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
@@ -23,15 +23,14 @@ function LoginPage() {
   const handleLoginSubmit = (e) => {
     e.preventDefault();
     const requestBody = { email, password };
-    
+
     axios
       .post(`${API_URL}/auth/login`, requestBody)
       .then((response) => {
-        
         storeToken(response.data.authToken);
         return authenticateUser();
       })
-      .then(()=> {
+      .then(() => {
         navigate("/user");
       })
       .catch((error) => {
@@ -45,7 +44,6 @@ function LoginPage() {
       className="pt-32 flex flex-col items-center justify-start px-4 min-h-screen bg-fixed bg-cover bg-center bg-no-repeat relative"
       style={{ backgroundImage: `url(${imgHome})` }}
     >
-     
       <h1
         className="absolute top-24 left-1/2 -translate-x-1/2 
           text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-blue-800 to-teal-400 
@@ -59,7 +57,6 @@ function LoginPage() {
           Login
         </h2>
 
-        
         <form onSubmit={handleLoginSubmit} className="space-y-4">
           <input
             type="email"
@@ -92,7 +89,7 @@ function LoginPage() {
           </button>
         </form>
         {errorMessage && <p className="error-message">{errorMessage}</p>}
-       
+
         <div className="mt-6 text-center text-gray-300">
           Don't have an account?
           <Link

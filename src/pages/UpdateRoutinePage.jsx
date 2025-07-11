@@ -18,6 +18,7 @@ function UpdateRoutinePage() {
   const [name, setName] = useState("");
   const [difficulty, setDifficulty] = useState("low");
   const [category, setCategory] = useState("stretching");
+  const [description, setDescription] = useState("");
   const [allExercises, setAllExercises] = useState([]);
   const [filteredExercises, setFilteredExercises] = useState([]);
   const [selectedIds, setSelectedIds] = useState([]);
@@ -52,10 +53,11 @@ function UpdateRoutinePage() {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((res) => {
-        const { name, difficulty, category, exercises } = res.data;
+        const { name, difficulty, category, description, exercises } = res.data;
         setName(name);
         setDifficulty(difficulty);
         setCategory(category);
+        setDescription(description);
         setSelectedIds(exercises.map((ex) => (ex._id ? ex._id : ex)));
       })
       .catch((err) => console.error("Error al cargar la rutina:", err))
@@ -85,7 +87,7 @@ function UpdateRoutinePage() {
     axios
       .put(
         `${API_URL}/api/routines/${routineId}`,
-        { name, category, difficulty, exercises: selectedIds },
+        { name, category, description, difficulty, exercises: selectedIds },
         { headers: { Authorization: `Bearer ${storedToken}` } }
       )
       .then(() => {
@@ -104,10 +106,10 @@ function UpdateRoutinePage() {
 
   return (
     <div
-      className="pt-32 flex flex-col items-center justify-start px-4 min-h-screen bg-fixed bg-cover bg-center bg-no-repeat"
+      className="pt-24 flex flex-col items-center justify-start px-4 min-h-screen bg-fixed bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: `url(${imgHome})` }}
     >
-      <div className="w-full max-w-sm bg-[#2a2f38]/50 rounded-3xl shadow-2xl p-8">
+      <div className="w-full max-w-sm bg-gray-800/50 rounded-3xl shadow-2xl p-6">
         <h2 className="text-3xl font-bold text-white text-center mb-6">
           Edit Routine
         </h2>
@@ -148,16 +150,13 @@ function UpdateRoutinePage() {
             </select>
           </div>
 
-          <ExerciseFilter
-            types={exerciseTypes}
-            selected={filterType}
-            onSelect={setFilterType}
-          />
-
           <div>
-            <label className="block text-sm text-white font-medium mb-2">
-              Ejercicios
-            </label>
+            <ExerciseFilter
+              label="Filter exercises"
+              types={exerciseTypes}
+              selected={filterType}
+              onSelect={setFilterType}
+            />
             <ExercisesList
               exercises={filteredExercises}
               selectedIds={selectedIds}
@@ -165,16 +164,26 @@ function UpdateRoutinePage() {
               onView={setSelectedExercise}
             />
           </div>
+          <div>
+            <label className="block text-white font-medium">Description</label>
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              rows="4"
+              className="w-full bg-gray-800/50 text-white px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 resize-none"
+              placeholder="Breve descripción de la rutina..."
+            />
+          </div>
 
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-indigo-900 to-indigo-400 active:brightness-125 transition duration-300 font-bold rounded-full py-2 text-white"
+            className="w-full bg-gradient-to-r from-indigo-900 to-teal-500 active:brightness-125 transition duration-300 font-bold rounded-xl py-2 text-white"
           >
             Guardar Cambios
           </button>
           <Link
             to={`/${user._id}/routines`}
-            className="block text-center w-full bg-gradient-to-r from-red-950 to-red-300 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-full mt-2"
+            className="block text-center w-full bg-gradient-to-r from-red-950 to-red-300 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-xl mt-2"
           >
             Cancel
           </Link>

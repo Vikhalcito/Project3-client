@@ -36,7 +36,6 @@ function RoutinesPage() {
         })
         .then((res) => {
           setRoutines(res.data);
-          console.log(res.data);
         })
         .catch((error) => {
           console.error("Failed to fetch Routines", error);

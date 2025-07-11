@@ -1,6 +1,6 @@
 export default function ExerciseList({exercises, selectedIds, toggleExercise, onView}) {
   return (
-    <div className="space-y-2 max-h-64 overflow-y-auto border p-3 rounded">
+    <div className="space-y-2 max-h-64 overflow-y-auto border p-3 mt-2 rounded">
       {exercises.map((ex) => (
         <div key={ex._id} className="w-full flex-column bg-gray-700/50 text-white px-4 py-3 rounded-xl">
           <label className="flex gap-2 items-start flex-1">

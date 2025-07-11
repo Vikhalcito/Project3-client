@@ -84,7 +84,7 @@ function SignUpPage() {
 
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-teal-950 to-teal-500 active:brightness-125 transition duration-300 text-white placeholder:text-white outline-none font-bold py-2 rounded-full mt-2"
+            className="w-full bg-gradient-to-r from-teal-950 to-teal-500 active:brightness-125 transition duration-300 text-white placeholder:text-white outline-none font-bold py-2 rounded-xl mt-2"
           >
             SIGN UP
           </button>

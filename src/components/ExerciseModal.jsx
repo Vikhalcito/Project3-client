@@ -1,6 +1,4 @@
-
 export default function ExerciseModal({ exercise, onClose }) {
-
   if (!exercise) return null;
 
   const getYoutubeEmbed = (url) => {
@@ -8,7 +6,8 @@ export default function ExerciseModal({ exercise, onClose }) {
     return match ? `https://www.youtube.com/embed/${match[1]}` : url;
   };
 
-  const videoUrl = exercise.videoUrl ||"https://www.youtube.com/watch?v=IODxDxX7oi4"
+  const videoUrl =
+    exercise.videoUrl || "https://www.youtube.com/watch?v=IODxDxX7oi4";
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
       <div className="bg-white  max-w-lg w-full p-6 rounded-xl relative shadow-xl">
@@ -24,16 +23,15 @@ export default function ExerciseModal({ exercise, onClose }) {
           <span className="font-medium">{exercise.difficulty}</span>
         </p>
         <p className="mb-3 text-gray-700">{exercise.description}</p>
-        
-          <div className="aspect-video">
-            <iframe
-              src={getYoutubeEmbed(videoUrl)}
-              className="w-full h-full rounded"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-          </div>
-        
+
+        <div className="aspect-video">
+          <iframe
+            src={getYoutubeEmbed(videoUrl)}
+            className="w-full h-full rounded"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        </div>
       </div>
     </div>
   );

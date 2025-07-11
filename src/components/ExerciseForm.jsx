@@ -9,19 +9,15 @@ export default function ExerciseForm({
   loading = false,
   successMsg,
   errorMsg,
-}) 
-{
-
-
+}) {
   const [form, setForm] = useState({
     name: initialValues.name ?? "",
     description: initialValues.description ?? "",
     category: initialValues.category ?? "",
     difficulty: initialValues.difficulty ?? "medium",
     videoUrl: initialValues.videoUrl ?? "",
-    id: initialValues.id
+    id: initialValues.id,
   });
-
 
   const handleChange = (e) =>
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -42,7 +38,7 @@ export default function ExerciseForm({
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-        <label className="block text-white font-medium">Name</label>
+          <label className="block text-white font-medium">Name</label>
           <input
             name="name"
             value={form.name}
@@ -51,7 +47,7 @@ export default function ExerciseForm({
             required
             className="w-full bg-gray-700/50 text-white px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500"
           />
-            <label className="block text-white font-medium">Description</label>
+          <label className="block text-white font-medium">Description</label>
           <textarea
             name="description"
             value={form.description}
@@ -60,7 +56,7 @@ export default function ExerciseForm({
             rows={3}
             className="w-full bg-gray-700/50 text-white px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500"
           />
-            <label className="block text-white font-medium">Category</label>
+          <label className="block text-white font-medium">Category</label>
           <input
             name="category"
             value={form.category}
@@ -68,7 +64,7 @@ export default function ExerciseForm({
             placeholder="Category (e.g. Chest, Legs)"
             className="w-full bg-gray-700/50 text-white px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500"
           />
-            <label className="block text-white font-medium">Difficulty</label>
+          <label className="block text-white font-medium">Difficulty</label>
           <select
             name="difficulty"
             value={form.difficulty}
@@ -79,7 +75,7 @@ export default function ExerciseForm({
             <option value="medium">Medium</option>
             <option value="high">High</option>
           </select>
-            <label className="block text-white font-medium">Video URL</label>
+          <label className="block text-white font-medium">Video URL</label>
           <input
             name="videoUrl"
             value={form.videoUrl}
@@ -89,46 +85,41 @@ export default function ExerciseForm({
           />
 
           {errorMsg && <p className="text-red-400">{errorMsg}</p>}
-            {title === "Add Exercise" ? (
-            <> 
-            <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-gradient-to-r from-indigo-700 to-teal-400 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-xl mt-2"
-          >
-            Add Exercise
-          </button>
-          <Link
-            to="/exercises"
-            className="block text-center w-full bg-gradient-to-r from-red-950 to-red-300 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-xl mt-2"
-          >
-            Cancel
-          </Link>
-          </>) :
-           (<> 
-            <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-gradient-to-r from-indigo-900 to-teal-500 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-xl mt-2"
-          >
-            Update Exercise
-          </button>
-          <Link
-            to={`/exercises/${initialValues._id}`}
-            className="block text-center w-full bg-gradient-to-r from-red-950 to-red-300 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-xl mt-2"
-          >
-            Cancel
-          </Link>
-          </>
-
+          {title === "Add Exercise" ? (
+            <>
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-gradient-to-r from-indigo-700 to-teal-400 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-xl mt-2"
+              >
+                Add Exercise
+              </button>
+              <Link
+                to="/exercises"
+                className="block text-center w-full bg-gradient-to-r from-red-950 to-red-300 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-xl mt-2"
+              >
+                Cancel
+              </Link>
+            </>
+          ) : (
+            <>
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-gradient-to-r from-indigo-900 to-teal-500 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-xl mt-2"
+              >
+                Update Exercise
+              </button>
+              <Link
+                to={`/exercises/${initialValues._id}`}
+                className="block text-center w-full bg-gradient-to-r from-red-950 to-red-300 active:brightness-125 transition duration-300 text-white font-bold py-2 rounded-xl mt-2"
+              >
+                Cancel
+              </Link>
+            </>
           )}
-         
 
-          
-
-          {successMsg && (
-            <p className="text-green-600">{successMsg}</p>
-          )}
+          {successMsg && <p className="text-green-600">{successMsg}</p>}
         </form>
       </div>
     </div>

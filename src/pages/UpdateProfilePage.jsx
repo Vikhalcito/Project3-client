@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -105,7 +105,7 @@ export default function UpdateProfilePage() {
                 value={form.name}
                 onChange={handleChange}
                 placeholder="Nombre"
-                className="w-full bg-gray-700 bg-opacity-50 text-white px-4 py-2 rounded-2xl focus:outline-none focus:ring-2 focus:ring-teal-500 transition duration-300"
+                className="w-full bg-gray-700 bg-opacity-70 text-white px-4 py-2 rounded-2xl focus:outline-none focus:ring-2 focus:ring-teal-500 transition duration-300"
               />
             </div>
 
@@ -120,7 +120,7 @@ export default function UpdateProfilePage() {
                   value={form.age}
                   onChange={handleChange}
                   placeholder="Edad"
-                  className="w-full bg-gray-700 bg-opacity-50 text-white px-4 py-2 rounded-2xl focus:outline-none focus:ring-2 focus:ring-teal-500 transition duration-300"
+                  className="w-full bg-gray-700 bg-opacity-70 text-white px-4 py-2 rounded-2xl focus:outline-none focus:ring-2 focus:ring-teal-500 transition duration-300"
                 />
               </div>
 
@@ -137,7 +137,7 @@ export default function UpdateProfilePage() {
                   min={0}
                   max={120}
                   step={1}
-                  className="w-full bg-gray-700 bg-opacity-50 text-white px-4 py-2 rounded-2xl focus:outline-none focus:ring-2 focus:ring-teal-500 transition duration-300"
+                  className="w-full bg-gray-700 bg-opacity-70 text-white px-4 py-2 rounded-2xl focus:outline-none focus:ring-2 focus:ring-teal-500 transition duration-300"
                 />
               </div>
 
@@ -151,7 +151,7 @@ export default function UpdateProfilePage() {
                   value={form.height}
                   onChange={handleChange}
                   placeholder="Altura (cm)"
-                  className="w-full bg-gray-700 bg-opacity-50 text-white px-4 py-2 rounded-2xl focus:outline-none focus:ring-2 focus:ring-teal-500 transition duration-300"
+                  className="w-full bg-gray-700 bg-opacity-70 text-white px-4 py-2 rounded-2xl focus:outline-none focus:ring-2 focus:ring-teal-500 transition duration-300"
                 />
               </div>
             </div>
@@ -166,7 +166,7 @@ export default function UpdateProfilePage() {
                 onChange={handleChange}
                 placeholder="Descripción"
                 rows={3}
-                className="w-full bg-gray-700 bg-opacity-50 text-white px-4 py-2 rounded-2xl focus:outline-none focus:ring-2 focus:ring-teal-500 transition duration-300 resize-none"
+                className="w-full bg-gray-700 bg-opacity-70 text-white px-4 py-2 rounded-2xl focus:outline-none focus:ring-2 focus:ring-teal-500 transition duration-300 resize-none"
               />
             </div>
           </div>
@@ -178,6 +178,7 @@ export default function UpdateProfilePage() {
           >
             {loading ? "Guardando…" : "Guardar cambios"}
           </button>
+          <Link to="/user" className="inline-block w-full text-center p-6 bg-gradient-to-r from-red-950 to-red-300 active:brightness-125 transition duration-300 font-bold rounded-xl py-2 text-white">cancel</Link>
         </form>
       </div>
     </div>
