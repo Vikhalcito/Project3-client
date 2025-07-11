@@ -13,7 +13,7 @@ function IsAdmin( { children } ) {
   if (!isLoggedIn) {
 
     return <Navigate to="/login" />;
-  } else if(user.roleType!=="admin"){
+  } else if(user.role!=="admin"){
   
     return <Navigate to="/" />;
   }else {
