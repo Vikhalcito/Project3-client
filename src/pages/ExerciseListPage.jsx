@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import { AuthContext } from "../context/auth.context";
 
-const API_URL = "http://localhost:5005";
+const API_URL = "https://calizenics-server.onrender.com";
 
 const getYoutubeId = (url = "") =>
   url.match(/(?:youtube\.com.*(?:\?|&)v=|youtu\.be\/)([^&\n?#]+)/)?.[1] ?? null;

@@ -7,8 +7,8 @@ import { Trash2, Loader2, SquarePen } from "lucide-react";
 
 import { AuthContext } from "../context/auth.context";
 
-const API_URL = "http://localhost:5005";
-
+//const API_URL = "http://localhost:5005";
+const API_URL = "https://calizenics-server.onrender.com";
 function RoutinesPage() {
   const [routines, setRoutines] = useState([]);
   const [loading, setLoading] = useState(true);

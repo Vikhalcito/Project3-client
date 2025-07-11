@@ -38,7 +38,7 @@ function App() {
 
         <Route exact path="/exercises" element={<ExerciseListPage />}/>
         <Route exact path="/exercises/addExercise" element={<IsAdmin><AddExercisePage /></IsAdmin>}/>
-        <Route exact path="/exercises/:exerciseId" element = {<IsAdmin><ExerciseDetailsPage /></IsAdmin>} />
+        <Route exact path="/exercises/:exerciseId" element = {<IsPrivate><ExerciseDetailsPage /></IsPrivate>} />
         <Route exact path="/exercises/update/:exerciseId" element = {<IsAdmin><UpdateExercisePage /></IsAdmin>} />
 
 

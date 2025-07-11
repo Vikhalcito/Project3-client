@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 
 import imgHome from "../assets/Fondo-CaliZenics.png";
-const API_URL = "http://localhost:5005";
-
+//const API_URL = "http://localhost:5005";
+const API_URL = "https://calizenics-server.onrender.com";
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

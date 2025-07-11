@@ -8,7 +8,8 @@ import imgHome from "../assets/Fondo-CaliZenics.png";
 
 import { AuthContext } from "../context/auth.context";
 
-const API_URL = "http://localhost:5005";
+//const API_URL = "http://localhost:5005";
+const API_URL = "https://calizenics-server.onrender.com";
 function UpdateRoutinePage() {
   const { routineId } = useParams();
   const navigate = useNavigate();

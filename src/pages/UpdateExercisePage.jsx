@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import ExerciseForm from "../components/ExerciseForm";
-const API_URL = "http://localhost:5005";
-
+//const API_URL = "http://localhost:5005";
+const API_URL = "https://calizenics-server.onrender.com";
 export default function UpdateExercisePage() {
   const { exerciseId } = useParams();
   console.log(exerciseId)

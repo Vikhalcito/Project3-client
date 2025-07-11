@@ -5,7 +5,7 @@ import ExerciseFilter from "./ExerciseFilter";
 import ExercisesList from "./ExercisesList";
 import ExerciseModal from "./ExerciseModal";
 import imgHome from "../assets/Fondo-CaliZenics.png"
-const API_URL = "http://localhost:5005";
+const API_URL = "https://calizenics-server.onrender.com";
 
 import { AuthContext } from "../context/auth.context"
 

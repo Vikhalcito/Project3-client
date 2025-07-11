@@ -3,8 +3,8 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import imgHome from "../assets/Fondo-CaliZenics.png"
 
-const API_URL = "http://localhost:5005";
-
+//const API_URL = "http://localhost:5005";
+const API_URL = "https://calizenics-server.onrender.com";
 function SignUpPage() {
 
   const [email, setEmail] = useState("");

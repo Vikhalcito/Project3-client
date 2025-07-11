@@ -6,7 +6,7 @@ import { AuthContext } from "../context/auth.context";
 
 import imgBg from "../assets/Fondo-Exercises.png";
 
-const API_URL = "http://localhost:5005";
+const API_URL = "https://calizenics-server.onrender.com";
 
 function ExerciseDetailsPage() {
   const { exerciseId } = useParams();
